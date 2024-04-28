@@ -1,23 +1,40 @@
+import { useRef } from "react";
 import { useFormik } from "formik";
-
+import { useMutation } from "@apollo/client";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
+import { Toast } from "primereact/toast";
 
-import { IRegisterInput } from "./types";
-import { initialRegisterValues, registerSchema } from "./const";
+import { showToastMessage } from "~/shared/utils";
+
+import { IRegisterInput } from "../types";
+import { initialRegisterValues, registerSchema } from "../validation";
+import { REGISTER_MUTATION } from "../graphql";
 
 const RegisterForm: React.FC = () => {
+  const [register, { loading }] = useMutation(REGISTER_MUTATION);
+  const toast = useRef(null);
+
   const formik = useFormik<IRegisterInput>({
     initialValues: initialRegisterValues,
     enableReinitialize: true,
     validationSchema: registerSchema,
-    onSubmit: (values) => {
-      console.log({ values });
+    onSubmit: (variables) => {
+      console.log({ variables });
+
+      register({ variables })
+        .then(() => showToastMessage("You registered successfully!", toast, "info"))
+        .catch((err) => {
+          showToastMessage(err.message, toast, "error");
+          console.error({ err });
+        });
     },
   });
 
   return (
     <form className="flex flex-col items-center w-full space-y-6 mt-6" onSubmit={formik.handleSubmit}>
+      <Toast ref={toast} position="bottom-center" />
+
       <div className="w-full">
         <InputText
           className="w-full rounded-xl shadow-md placeholder-slate-400"
@@ -72,7 +89,12 @@ const RegisterForm: React.FC = () => {
         )}
       </div>
       <div className="w-full flex flex-col items-center">
-        <Button raised className="w-3/4 block rounded-xl bg-featured border-none text-center" type="submit">
+        <Button
+          raised
+          loading={loading}
+          className="w-3/4 block rounded-xl bg-featured border-none text-center"
+          type="submit"
+        >
           Submit
         </Button>
         <div className="w-full mt-3 flex justify-center space-x-1 text-title text-sm font-semibold">
