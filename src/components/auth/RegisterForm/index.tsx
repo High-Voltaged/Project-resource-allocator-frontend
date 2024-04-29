@@ -6,10 +6,10 @@ import { InputText } from "primereact/inputtext";
 import { Toast } from "primereact/toast";
 
 import { showToastMessage } from "~/shared/utils";
+import { REGISTER_MUTATION } from "~/shared/graphql/auth";
 
 import { IRegisterInput } from "../types";
 import { initialRegisterValues, registerSchema } from "../validation";
-import { REGISTER_MUTATION } from "../graphql";
 
 const RegisterForm: React.FC = () => {
   const [register, { loading }] = useMutation(REGISTER_MUTATION);

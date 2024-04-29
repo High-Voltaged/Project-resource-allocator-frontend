@@ -5,18 +5,17 @@ import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 
-import useLocalStorage from "~/hooks/use-local-storage";
 import { showToastMessage } from "~/shared/utils";
-import { LSKey } from "~/shared/types";
+import useCurrentUser from "~/hooks/use-current-user";
 
 import { ILoginInput, TLoginOutput } from "../types";
 import { initialLoginValues, loginSchema } from "../validation";
-import { LOGIN_MUTATION } from "../graphql";
+import { LOGIN_MUTATION } from "../../../shared/graphql/auth";
 
 const LoginForm: React.FC = () => {
   const [login, { loading }] = useMutation<TLoginOutput, ILoginInput>(LOGIN_MUTATION);
-  const { setLSValue } = useLocalStorage(LSKey.AccessToken);
   const toast = useRef(null);
+  const { updateCurrentUser } = useCurrentUser();
 
   const formik = useFormik<ILoginInput>({
     initialValues: initialLoginValues,
@@ -24,14 +23,8 @@ const LoginForm: React.FC = () => {
     validationSchema: loginSchema,
     onSubmit: (variables) => {
       login({ variables })
-        .then(({ data }) => {
-          if (!data || !data.result.accessToken) {
-            throw new Error("No access token returned.");
-          }
-
-          setLSValue(data.result.accessToken);
-          showToastMessage("You logged in successfully!", toast, "info");
-        })
+        .then(({ data }) => updateCurrentUser(data?.result.accessToken))
+        .then(() => showToastMessage("You logged in successfully!", toast, "info"))
         .catch((err) => {
           showToastMessage(err.message, toast, "error");
           console.error({ err });

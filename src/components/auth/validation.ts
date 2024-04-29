@@ -1,13 +1,6 @@
 import { ILoginInput, IRegisterInput } from "./types";
 import * as yup from "yup";
 
-enum LIMIT_VALUES {
-  USERNAME_MIN = 5,
-  USERNAME_MAX = 20,
-  PASSWORD_MIN = 8,
-  PASSWORD_MAX = 20,
-}
-
 export const initialRegisterValues: IRegisterInput = {
   firstName: "",
   lastName: "",
@@ -19,6 +12,13 @@ export const initialLoginValues: ILoginInput = {
   email: "",
   password: "",
 };
+
+enum LIMIT_VALUES {
+  USERNAME_MIN = 5,
+  USERNAME_MAX = 20,
+  PASSWORD_MIN = 8,
+  PASSWORD_MAX = 20,
+}
 
 export const registerSchema = yup.object().shape({
   firstName: yup

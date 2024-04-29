@@ -10,6 +10,6 @@ export enum LSKey {
 /**
  * GraphQL-related types
  */
-export interface MutationOutput<T> {
+export interface QueryOutput<T> {
   result: T;
 }

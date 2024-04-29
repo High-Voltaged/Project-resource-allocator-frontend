@@ -1,12 +1,24 @@
 import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { LSKey } from "~/shared/types";
+import { getLSValue } from "~/shared/utils";
 
-const link = new HttpLink({
+const httpLink = new HttpLink({
   uri: import.meta.env.VITE_SERVER_URL,
 });
 
-const client = new ApolloClient({
-  link,
-  cache: new InMemoryCache(),
+const authLink = setContext((_, { headers }) => {
+  const token = getLSValue(LSKey.AccessToken);
+
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  };
 });
 
-export default client;
+export const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
