@@ -9,6 +9,7 @@ import { store } from "~/state/index.ts";
 
 import App from "./App.tsx";
 import "./index.css";
+import "primeicons/primeicons.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

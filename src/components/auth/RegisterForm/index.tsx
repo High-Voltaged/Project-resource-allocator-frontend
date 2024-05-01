@@ -10,6 +10,7 @@ import { REGISTER_MUTATION } from "~/shared/graphql/auth";
 
 import { IRegisterInput } from "../types";
 import { initialRegisterValues, registerSchema } from "../validation";
+import { BaseRoutes } from "~/shared/const/routes";
 
 const RegisterForm: React.FC = () => {
   const [register, { loading }] = useMutation(REGISTER_MUTATION);
@@ -99,7 +100,7 @@ const RegisterForm: React.FC = () => {
         </Button>
         <div className="w-full mt-3 flex justify-center space-x-1 text-title text-sm font-semibold">
           <span>Already have an account?</span>
-          <a href="/login" rel="noreferrer" className="text-featured hover:underline">
+          <a href={BaseRoutes.LOGIN} rel="noreferrer" className="text-featured hover:underline">
             Login Here
           </a>
         </div>

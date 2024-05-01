@@ -1,10 +1,6 @@
-import React, { ReactNode } from "react";
+import { WrapperProps } from "./types";
 
-export interface CenteredBoxProps {
-  children: ReactNode;
-}
-
-const CenteredBox: React.FC<CenteredBoxProps> = ({ children }) => {
+const CenteredBox: React.FC<WrapperProps> = ({ children }) => {
   return <div className="flex justify-center items-center h-screen bg-secondary">{children}</div>;
 };
 

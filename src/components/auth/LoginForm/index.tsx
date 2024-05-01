@@ -1,12 +1,14 @@
 import { useRef } from "react";
 import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 import { Toast } from "primereact/toast";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 
 import { showToastMessage } from "~/shared/utils";
 import useCurrentUser from "~/hooks/use-current-user";
+import { BaseRoutes } from "~/shared/const/routes";
 
 import { ILoginInput, TLoginOutput } from "../types";
 import { initialLoginValues, loginSchema } from "../validation";
@@ -16,6 +18,7 @@ const LoginForm: React.FC = () => {
   const [login, { loading }] = useMutation<TLoginOutput, ILoginInput>(LOGIN_MUTATION);
   const toast = useRef(null);
   const { updateCurrentUser } = useCurrentUser();
+  const navigate = useNavigate();
 
   const formik = useFormik<ILoginInput>({
     initialValues: initialLoginValues,
@@ -24,7 +27,10 @@ const LoginForm: React.FC = () => {
     onSubmit: (variables) => {
       login({ variables })
         .then(({ data }) => updateCurrentUser(data?.result.accessToken))
-        .then(() => showToastMessage("You logged in successfully!", toast, "info"))
+        .then(() => {
+          showToastMessage("You logged in successfully!", toast, "info");
+          navigate(BaseRoutes.PROJECTS);
+        })
         .catch((err) => {
           showToastMessage(err.message, toast, "error");
           console.error({ err });
@@ -74,7 +80,7 @@ const LoginForm: React.FC = () => {
         </Button>
         <div className="w-full mt-4 flex justify-center space-x-1 text-title text-sm font-semibold">
           <span>Don't have an account?</span>
-          <a href="/register" rel="noreferrer" className="text-featured hover:underline">
+          <a href={BaseRoutes.REGISTER} rel="noreferrer" className="text-featured hover:underline">
             Register Here
           </a>
         </div>
