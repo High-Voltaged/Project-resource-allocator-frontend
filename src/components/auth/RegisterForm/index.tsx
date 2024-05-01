@@ -13,23 +13,20 @@ import { initialRegisterValues, registerSchema } from "../validation";
 import { BaseRoutes } from "~/shared/const/routes";
 
 const RegisterForm: React.FC = () => {
-  const [register, { loading }] = useMutation(REGISTER_MUTATION);
+  const [register, { loading }] = useMutation(REGISTER_MUTATION, {
+    onCompleted: (_data) => showToastMessage("You registered successfully!", toast, "info"),
+    onError: (error) => {
+      showToastMessage(error.message, toast, "error");
+      console.error(error.message);
+    },
+  });
   const toast = useRef(null);
 
   const formik = useFormik<IRegisterInput>({
     initialValues: initialRegisterValues,
     enableReinitialize: true,
     validationSchema: registerSchema,
-    onSubmit: (variables) => {
-      console.log({ variables });
-
-      register({ variables })
-        .then(() => showToastMessage("You registered successfully!", toast, "info"))
-        .catch((err) => {
-          showToastMessage(err.message, toast, "error");
-          console.error({ err });
-        });
-    },
+    onSubmit: (variables) => register({ variables }),
   });
 
   return (
@@ -38,6 +35,7 @@ const RegisterForm: React.FC = () => {
 
       <div className="w-full">
         <InputText
+          id="firstName"
           className="w-full rounded-xl shadow-md placeholder-slate-400"
           placeholder="Your first name"
           name="firstName"
@@ -51,6 +49,7 @@ const RegisterForm: React.FC = () => {
       </div>
       <div className="w-full">
         <InputText
+          id="lastName"
           className="w-full rounded-xl shadow-md placeholder-slate-400"
           placeholder="Your last name"
           name="lastName"
@@ -64,6 +63,7 @@ const RegisterForm: React.FC = () => {
       </div>
       <div className="w-full">
         <InputText
+          id="email"
           className="w-full rounded-xl shadow-md placeholder-slate-400"
           placeholder="Your email"
           name="email"
@@ -77,6 +77,7 @@ const RegisterForm: React.FC = () => {
       </div>
       <div className="w-full">
         <InputText
+          id="password"
           className="w-full rounded-xl shadow-md placeholder-slate-400"
           placeholder="Your password"
           name="password"

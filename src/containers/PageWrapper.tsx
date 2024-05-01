@@ -6,7 +6,7 @@ const PageWrapper: React.FC<WrapperProps> = ({ children }) => {
     <div className="h-screen">
       <div className="h-full flex flex-col">
         <Navbar />
-        <div className="flex flex-auto px-20">{children}</div>
+        <div className="flex flex-auto px-40 py-10">{children}</div>
       </div>
     </div>
   );

@@ -4,7 +4,9 @@ import { useEffect } from "react";
 import Register from "~/pages/Register";
 import Login from "~/pages/Login";
 import ProjectsPage from "~/pages/Projects";
-import { BaseRoutes } from "~/shared/const/routes";
+import SettingsPage from "~/pages/user/Settings";
+
+import { BaseRoutes, MyRoutes } from "~/shared/const/routes";
 import { getLSValue } from "~/shared/utils";
 import { LSKey } from "~/shared/types";
 import useCurrentUser from "~/hooks/use-current-user";
@@ -22,10 +24,12 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path={BaseRoutes.HOME} element={<div>welcome</div>}></Route>
-        <Route path={BaseRoutes.LOGIN} element={<Login />}></Route>
-        <Route path={BaseRoutes.REGISTER} element={<Register />}></Route>
-        <Route path={BaseRoutes.PROJECTS} element={<ProjectsPage />}></Route>
+        <Route path={BaseRoutes.HOME} element={<div>welcome</div>} />
+        <Route path={BaseRoutes.LOGIN} element={<Login />} />
+        <Route path={BaseRoutes.REGISTER} element={<Register />} />
+        <Route path={BaseRoutes.PROJECTS} element={<ProjectsPage />} />
+
+        <Route path={MyRoutes.SETTINGS} element={<SettingsPage />} />
       </Routes>
     </Router>
   );

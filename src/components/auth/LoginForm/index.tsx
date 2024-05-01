@@ -15,7 +15,17 @@ import { initialLoginValues, loginSchema } from "../validation";
 import { LOGIN_MUTATION } from "../../../shared/graphql/auth";
 
 const LoginForm: React.FC = () => {
-  const [login, { loading }] = useMutation<TLoginOutput, ILoginInput>(LOGIN_MUTATION);
+  const [login, { loading }] = useMutation<TLoginOutput, ILoginInput>(LOGIN_MUTATION, {
+    onCompleted: async (data) => {
+      await updateCurrentUser(data.result.accessToken);
+      navigate(BaseRoutes.PROJECTS);
+    },
+    onError: (error) => {
+      showToastMessage(error.message, toast, "error");
+      console.error(error.message);
+    },
+  });
+
   const toast = useRef(null);
   const { updateCurrentUser } = useCurrentUser();
   const navigate = useNavigate();
@@ -24,18 +34,7 @@ const LoginForm: React.FC = () => {
     initialValues: initialLoginValues,
     enableReinitialize: true,
     validationSchema: loginSchema,
-    onSubmit: (variables) => {
-      login({ variables })
-        .then(({ data }) => updateCurrentUser(data?.result.accessToken))
-        .then(() => {
-          showToastMessage("You logged in successfully!", toast, "info");
-          navigate(BaseRoutes.PROJECTS);
-        })
-        .catch((err) => {
-          showToastMessage(err.message, toast, "error");
-          console.error({ err });
-        });
-    },
+    onSubmit: (variables) => login({ variables }),
   });
 
   return (
@@ -44,6 +43,7 @@ const LoginForm: React.FC = () => {
 
       <div className="w-full">
         <InputText
+          id="email"
           className="w-full rounded-xl shadow-md placeholder-slate-400"
           placeholder="Your email"
           name="email"
@@ -57,6 +57,7 @@ const LoginForm: React.FC = () => {
       </div>
       <div className="w-full">
         <InputText
+          id="password"
           className="w-full rounded-xl shadow-md placeholder-slate-400"
           placeholder="Your password"
           name="password"

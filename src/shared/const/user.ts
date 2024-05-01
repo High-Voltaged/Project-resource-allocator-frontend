@@ -1,0 +1,6 @@
+export enum LIMIT_VALUES {
+  USERNAME_MIN = 3,
+  USERNAME_MAX = 14,
+  PASSWORD_MIN = 8,
+  PASSWORD_MAX = 20,
+}

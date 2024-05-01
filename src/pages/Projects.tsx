@@ -1,6 +1,6 @@
 import ProjectsContainer from "~/components/projects/ProjectsContainer";
 
-const ProjectsPage = () => {
+const ProjectsPage: React.FC = () => {
   return <ProjectsContainer />;
 };
 

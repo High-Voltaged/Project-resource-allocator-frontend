@@ -4,3 +4,8 @@ export const BaseRoutes = {
   REGISTER: "/register",
   PROJECTS: "/projects",
 };
+
+export const MyRoutes = {
+  SETTINGS: "/my/settings",
+  // PROJECTS: '/my/projects'
+};

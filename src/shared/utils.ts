@@ -2,6 +2,7 @@ import { Toast, ToastMessage } from "primereact/toast";
 import { RefObject } from "react";
 
 import { LSKey, TScalar } from "~/shared/types";
+import { IUser } from "./types/user";
 
 export const showToastMessage = (message: string, ref: RefObject<Toast>, level: ToastMessage["severity"]) => {
   const summary = level ? level.charAt(0).toUpperCase() + level.slice(1) : "info";
@@ -22,3 +23,6 @@ export const getLSValue = (key: LSKey, initialValue: TScalar = ""): TScalar => {
 export const setLSValue = (key: LSKey, newValue: TScalar) => {
   localStorage.setItem(key, JSON.stringify(newValue));
 };
+
+export const getUserNameLabel = (user: IUser) =>
+  user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase();
