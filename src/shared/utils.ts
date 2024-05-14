@@ -1,18 +1,14 @@
-import { Toast, ToastMessage } from "primereact/toast";
-import { RefObject } from "react";
-
 import { LSKey, TScalar } from "~/shared/types";
 import { IUser } from "./types/user";
 
-export const showToastMessage = (message: string, ref: RefObject<Toast>, level: ToastMessage["severity"]) => {
-  const summary = level ? level.charAt(0).toUpperCase() + level.slice(1) : "info";
-
-  ref.current?.show({
-    severity: level,
-    summary,
-    detail: message,
-    life: 3000,
-  });
+export const showToastMessage = (message: string) => {
+  // const summary = level ? level.charAt(0).toUpperCase() + level.slice(1) : "info";
+  // ref.current?.show({
+  //   severity: level,
+  //   summary,
+  //   detail: message,
+  //   life: 3000,
+  // });
 };
 
 export const getLSValue = (key: LSKey, initialValue: TScalar = ""): TScalar => {

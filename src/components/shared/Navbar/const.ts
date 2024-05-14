@@ -1,12 +1,17 @@
-import { MenuItem } from "primereact/menuitem";
+import { BaseRoutes } from "~/shared/const/routes";
+
+interface MenuItem {
+  label: string;
+  path: string;
+}
 
 export const MENU_ITEMS: MenuItem[] = [
   {
     label: "Home",
-    icon: "pi pi-home",
+    path: BaseRoutes.HOME,
   },
   {
     label: "Projects",
-    icon: "pi pi-list",
+    path: BaseRoutes.PROJECTS,
   },
 ];

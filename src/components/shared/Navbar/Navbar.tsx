@@ -1,23 +1,25 @@
 import { useSelector } from "react-redux";
+import { TabNav } from "@radix-ui/themes";
 
 import { RootState } from "~/state";
 
 import UserAvatar from "./UserAvatar";
 import { MENU_ITEMS } from "./const";
+import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
+  const { pathname } = useLocation();
 
   return (
     <div className="flex items-center justify-between px-20 py-4 bg-primary">
-      <div className="flex items-center space-x-4">
+      <TabNav.Root size="2">
         {MENU_ITEMS.map((item) => (
-          <a key={item.label} className="flex items-center px-4 py-2 rounded-lg cursor-pointer hover:bg-secondary">
-            <span className={item.icon} />
-            <span className="mx-2">{item.label}</span>
-          </a>
+          <TabNav.Link key={item.label} href={item.path} active={pathname === item.path}>
+            {item.label}
+          </TabNav.Link>
         ))}
-      </div>
+      </TabNav.Root>
       {user && <UserAvatar user={user} />}
     </div>
   );

@@ -1,23 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { PrimeReactProvider } from "primereact/api";
 import { ApolloProvider } from "@apollo/client";
 import { Provider } from "react-redux";
+import { Theme } from "@radix-ui/themes";
 
 import { client } from "~/apollo/index.ts";
 import { store } from "~/state/index.ts";
 
 import App from "./App.tsx";
+import "@radix-ui/themes/styles.css";
 import "./index.css";
-import "primeicons/primeicons.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
       <ApolloProvider client={client}>
-        <PrimeReactProvider>
+        <Theme accentColor="indigo" radius="large">
           <App />
-        </PrimeReactProvider>
+        </Theme>
       </ApolloProvider>
     </Provider>
   </React.StrictMode>

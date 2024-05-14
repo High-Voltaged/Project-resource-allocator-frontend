@@ -2,17 +2,16 @@ import { useRef } from "react";
 import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import { Toast } from "primereact/toast";
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
+import { Button, Link, TextField } from "@radix-ui/themes";
+import { EnvelopeClosedIcon, LockClosedIcon } from "@radix-ui/react-icons";
 
 import { showToastMessage } from "~/shared/utils";
 import useCurrentUser from "~/hooks/use-current-user";
 import { BaseRoutes } from "~/shared/const/routes";
+import { LOGIN_MUTATION } from "~/shared/graphql/auth";
 
 import { ILoginInput, TLoginOutput } from "../types";
 import { initialLoginValues, loginSchema } from "../validation";
-import { LOGIN_MUTATION } from "../../../shared/graphql/auth";
 
 const LoginForm: React.FC = () => {
   const [login, { loading }] = useMutation<TLoginOutput, ILoginInput>(LOGIN_MUTATION, {
@@ -21,7 +20,7 @@ const LoginForm: React.FC = () => {
       navigate(BaseRoutes.PROJECTS);
     },
     onError: (error) => {
-      showToastMessage(error.message, toast, "error");
+      // showToastMessage(error.message, toast, "error");
       console.error(error.message);
     },
   });
@@ -39,25 +38,31 @@ const LoginForm: React.FC = () => {
 
   return (
     <form className="flex flex-col items-center w-full space-y-6 mt-6" onSubmit={formik.handleSubmit}>
-      <Toast ref={toast} position="bottom-center" />
+      {/* <Toast ref={toast} position="bottom-center" /> */}
 
       <div className="w-full">
-        <InputText
+        <TextField.Root
           id="email"
+          size="3"
           className="w-full rounded-xl shadow-md placeholder-slate-400"
           placeholder="Your email"
           name="email"
           value={formik.values.email}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-        />
+        >
+          <TextField.Slot>
+            <EnvelopeClosedIcon />
+          </TextField.Slot>
+        </TextField.Root>
         {formik.touched.email && formik.errors.email && (
-          <small className="pl-2 text-red-500 !mt-1">{formik.errors.email}</small>
+          <p className="pl-2 text-sm text-red-500 !mt-1">{formik.errors.email}</p>
         )}
       </div>
       <div className="w-full">
-        <InputText
+        <TextField.Root
           id="password"
+          size="3"
           className="w-full rounded-xl shadow-md placeholder-slate-400"
           placeholder="Your password"
           name="password"
@@ -65,25 +70,29 @@ const LoginForm: React.FC = () => {
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-        />
+        >
+          <TextField.Slot>
+            <LockClosedIcon />
+          </TextField.Slot>
+        </TextField.Root>
         {formik.touched.password && formik.errors.password && (
-          <small className="pl-2 text-red-500 !mt-1">{formik.errors.password}</small>
+          <p className="pl-2 text-sm text-red-500 !mt-1">{formik.errors.password}</p>
         )}
       </div>
       <div className="w-full flex flex-col items-center">
         <Button
-          raised
           loading={loading}
-          className="w-3/4 block rounded-xl bg-featured border-none text-center"
+          size="3"
+          className="w-3/4 block rounded-xl border-none text-center cursor-pointer"
           type="submit"
         >
           Submit
         </Button>
         <div className="w-full mt-4 flex justify-center space-x-1 text-title text-sm font-semibold">
           <span>Don't have an account?</span>
-          <a href={BaseRoutes.REGISTER} rel="noreferrer" className="text-featured hover:underline">
+          <Link href={BaseRoutes.REGISTER} rel="noreferrer">
             Register Here
-          </a>
+          </Link>
         </div>
       </div>
     </form>

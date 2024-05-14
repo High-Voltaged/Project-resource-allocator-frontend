@@ -1,8 +1,5 @@
-import { useRef } from "react";
+import { Avatar, Button, DropdownMenu } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
-import { Avatar } from "primereact/avatar";
-import { Menu } from "primereact/menu";
-import { MenuItem } from "primereact/menuitem";
 
 import useLogout from "~/hooks/use-logout";
 import { MyRoutes } from "~/shared/const/routes";
@@ -17,26 +14,21 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
   const logout = useLogout();
   const navigate = useNavigate();
 
-  const items: MenuItem[] = [
-    {
-      label: "Settings",
-      icon: "pi pi-cog",
-      command: () => navigate(MyRoutes.SETTINGS),
-    },
-    { label: "Logout", icon: "pi pi-sign-out", command: logout },
-  ];
-
-  const menuRef = useRef<Menu>(null);
-
   return (
     <div className="card flex justify-content-center">
-      <Avatar
-        label={getUserNameLabel(user)}
-        size="xlarge"
-        className="w-12 h-12 text-lg rounded-lg"
-        onClick={(e) => menuRef.current?.toggle(e)}
-      />
-      <Menu ref={menuRef} model={items} popup popupAlignment="right" className="mt-3" />
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger>
+          <Button>
+            <Avatar fallback={getUserNameLabel(user)} size="4" />
+          </Button>
+        </DropdownMenu.Trigger>
+
+        <DropdownMenu.Content>
+          <DropdownMenu.Item onClick={() => navigate(MyRoutes.SETTINGS)}>Settings</DropdownMenu.Item>
+          <DropdownMenu.Separator />
+          <DropdownMenu.Item onClick={logout}>Logout</DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
     </div>
   );
 };

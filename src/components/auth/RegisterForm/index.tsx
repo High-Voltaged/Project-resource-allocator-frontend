@@ -1,22 +1,22 @@
 import { useRef } from "react";
 import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
-import { Toast } from "primereact/toast";
+import { Button, Link, TextField } from "@radix-ui/themes";
+import { EnvelopeClosedIcon, LockClosedIcon, PersonIcon } from "@radix-ui/react-icons";
 
 import { showToastMessage } from "~/shared/utils";
 import { REGISTER_MUTATION } from "~/shared/graphql/auth";
+import { BaseRoutes } from "~/shared/const/routes";
+// import ToastContainer from "~/components/shared/Toast/Toast";
 
 import { IRegisterInput } from "../types";
 import { initialRegisterValues, registerSchema } from "../validation";
-import { BaseRoutes } from "~/shared/const/routes";
 
 const RegisterForm: React.FC = () => {
   const [register, { loading }] = useMutation(REGISTER_MUTATION, {
-    onCompleted: (_data) => showToastMessage("You registered successfully!", toast, "info"),
+    // onCompleted: (_data) => showToastMessage("You registered successfully!", toast, "info"),
     onError: (error) => {
-      showToastMessage(error.message, toast, "error");
+      // showToastMessage(error.message, toast, "error");
       console.error(error.message);
     },
   });
@@ -31,53 +31,67 @@ const RegisterForm: React.FC = () => {
 
   return (
     <form className="flex flex-col items-center w-full space-y-6 mt-6" onSubmit={formik.handleSubmit}>
-      <Toast ref={toast} position="bottom-center" />
-
       <div className="w-full">
-        <InputText
+        <TextField.Root
           id="firstName"
+          size="3"
           className="w-full rounded-xl shadow-md placeholder-slate-400"
           placeholder="Your first name"
           name="firstName"
           value={formik.values.firstName}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-        />
+        >
+          <TextField.Slot>
+            <PersonIcon />
+          </TextField.Slot>
+        </TextField.Root>
         {formik.touched.firstName && formik.errors.firstName && (
-          <small className="pl-2 text-red-500 !mt-1">{formik.errors.firstName}</small>
+          <p className="pl-2 text-sm text-red-500 !mt-1">{formik.errors.firstName}</p>
         )}
       </div>
       <div className="w-full">
-        <InputText
+        <TextField.Root
           id="lastName"
+          size="3"
           className="w-full rounded-xl shadow-md placeholder-slate-400"
           placeholder="Your last name"
           name="lastName"
           value={formik.values.lastName}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-        />
+        >
+          <TextField.Slot>
+            <PersonIcon />
+          </TextField.Slot>
+        </TextField.Root>
         {formik.touched.lastName && formik.errors.lastName && (
-          <small className="pl-2 text-red-500 !mt-1">{formik.errors.lastName}</small>
+          <p className="pl-2 text-sm text-red-500 !mt-1">{formik.errors.lastName}</p>
         )}
       </div>
       <div className="w-full">
-        <InputText
+        <TextField.Root
           id="email"
+          size="3"
           className="w-full rounded-xl shadow-md placeholder-slate-400"
           placeholder="Your email"
           name="email"
           value={formik.values.email}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-        />
+        >
+          <TextField.Slot>
+            <EnvelopeClosedIcon />
+          </TextField.Slot>
+        </TextField.Root>
         {formik.touched.email && formik.errors.email && (
-          <small className="pl-2 text-red-500 !mt-1">{formik.errors.email}</small>
+          <p className="pl-2 text-sm text-red-500 !mt-1">{formik.errors.email}</p>
         )}
       </div>
       <div className="w-full">
-        <InputText
+        <TextField.Root
           id="password"
+          size="3"
           className="w-full rounded-xl shadow-md placeholder-slate-400"
           placeholder="Your password"
           name="password"
@@ -85,25 +99,29 @@ const RegisterForm: React.FC = () => {
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-        />
+        >
+          <TextField.Slot>
+            <LockClosedIcon />
+          </TextField.Slot>
+        </TextField.Root>
         {formik.touched.password && formik.errors.password && (
-          <small className="pl-2 text-red-500 !mt-1">{formik.errors.password}</small>
+          <p className="pl-2 text-sm text-red-500 !mt-1">{formik.errors.password}</p>
         )}
       </div>
       <div className="w-full flex flex-col items-center">
         <Button
-          raised
           loading={loading}
-          className="w-3/4 block rounded-xl bg-featured border-none text-center"
+          size="3"
+          className="w-3/4 block rounded-xl border-none text-center cursor-pointer"
           type="submit"
         >
           Submit
         </Button>
         <div className="w-full mt-3 flex justify-center space-x-1 text-title text-sm font-semibold">
           <span>Already have an account?</span>
-          <a href={BaseRoutes.LOGIN} rel="noreferrer" className="text-featured hover:underline">
+          <Link href={BaseRoutes.LOGIN} rel="noreferrer">
             Login Here
-          </a>
+          </Link>
         </div>
       </div>
     </form>
