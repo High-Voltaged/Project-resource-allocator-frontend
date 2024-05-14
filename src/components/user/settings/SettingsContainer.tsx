@@ -4,6 +4,7 @@ import { Tabs } from "@radix-ui/themes";
 import PageWrapper from "~/containers/PageWrapper";
 import { IUser } from "~/shared/types/user";
 import { RootState } from "~/state";
+
 import SettingsForm from "./SettingsForm";
 import PasswordForm from "./PasswordForm";
 
@@ -12,7 +13,7 @@ const SettingsContainer: React.FC = () => {
 
   return (
     <PageWrapper>
-      <div className="flex w-full border-2 border-primary bg-gray-100 rounded-xl">
+      <div className="flex w-full border border-primary bg-white rounded-xl">
         {user && (
           <div className="p-1">
             <Tabs.Root defaultValue="account">

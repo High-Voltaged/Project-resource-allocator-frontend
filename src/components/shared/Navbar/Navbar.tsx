@@ -1,27 +1,32 @@
 import { useSelector } from "react-redux";
-import { TabNav } from "@radix-ui/themes";
+import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 
 import { RootState } from "~/state";
 
 import UserAvatar from "./UserAvatar";
 import { MENU_ITEMS } from "./const";
-import { useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
-  const { pathname } = useLocation();
 
   return (
-    <div className="flex items-center justify-between px-20 py-4 bg-primary">
-      <TabNav.Root size="2">
-        {MENU_ITEMS.map((item) => (
-          <TabNav.Link key={item.label} href={item.path} active={pathname === item.path}>
-            {item.label}
-          </TabNav.Link>
-        ))}
-      </TabNav.Root>
-      {user && <UserAvatar user={user} />}
-    </div>
+    <NavigationMenu.Root>
+      <NavigationMenu.List className="flex items-center space-x-4 justify-between mx-10 p-4 border-b-2 border-x-2 border-slate-300 list-none rounded-b-lg bg-white">
+        <div className="flex items-center space-x-4">
+          {MENU_ITEMS.map((item) => (
+            <NavigationMenu.Item key={item.label}>
+              <NavigationMenu.Link
+                className="text-featured hover:bg-violet-200 block select-none rounded-md px-6 py-3 font-medium leading-none no-underline outline-none"
+                href={item.path}
+              >
+                {item.label}
+              </NavigationMenu.Link>
+            </NavigationMenu.Item>
+          ))}
+        </div>
+        {user && <UserAvatar user={user} />}
+      </NavigationMenu.List>
+    </NavigationMenu.Root>
   );
 };
 

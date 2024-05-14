@@ -54,7 +54,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ user }) => {
                 <TextField.Root
                   id="email"
                   size="3"
-                  className="w-full rounded-xl shadow-md placeholder-slate-400"
+                  className="w-full rounded-xl border border-slate-100 placeholder-slate-400"
                   placeholder="Your email"
                   name="email"
                   value={formik.values.email}
@@ -76,7 +76,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ user }) => {
                 <TextField.Root
                   id="firstName"
                   size="3"
-                  className="w-full rounded-xl shadow-md placeholder-slate-400"
+                  className="w-full rounded-xl border border-slate-100 placeholder-slate-400"
                   placeholder="Your first name"
                   name="firstName"
                   value={formik.values.firstName}
@@ -98,7 +98,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ user }) => {
                 <TextField.Root
                   id="lastName"
                   size="3"
-                  className="w-full rounded-xl shadow-md placeholder-slate-400"
+                  className="w-full rounded-xl border border-slate-100 placeholder-slate-400"
                   placeholder="Your last name"
                   name="lastName"
                   value={formik.values.lastName}
