@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { Button, Flex, Switch, Text, TextField } from "@radix-ui/themes";
-import { EnvelopeClosedIcon } from "@radix-ui/react-icons";
+import { EnvelopeClosedIcon, PersonIcon } from "@radix-ui/react-icons";
 
 import { IUser } from "~/shared/types/user";
 import { showToastMessage } from "~/shared/utils";
@@ -84,7 +84,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ user }) => {
                   onBlur={formik.handleBlur}
                 >
                   <TextField.Slot>
-                    <EnvelopeClosedIcon />
+                    <PersonIcon />
                   </TextField.Slot>
                 </TextField.Root>
                 {formik.touched.firstName && formik.errors.firstName && (
@@ -106,7 +106,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ user }) => {
                   onBlur={formik.handleBlur}
                 >
                   <TextField.Slot>
-                    <EnvelopeClosedIcon />
+                    <PersonIcon />
                   </TextField.Slot>
                 </TextField.Root>
                 {formik.touched.lastName && formik.errors.lastName && (
