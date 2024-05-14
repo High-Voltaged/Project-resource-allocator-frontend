@@ -13,7 +13,7 @@ const SettingsContainer: React.FC = () => {
 
   return (
     <PageWrapper>
-      <div className="flex w-full border border-primary bg-white rounded-xl">
+      <div className="flex w-full bg-white rounded-xl shadow-md">
         {user && (
           <div className="p-1">
             <Tabs.Root defaultValue="account">
