@@ -22,3 +22,5 @@ export const setLSValue = (key: LSKey, newValue: TScalar) => {
 
 export const getUserNameLabel = (user: IUser) =>
   user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase();
+
+export const getProjectLabel = (projectName: string) => projectName.charAt(0).toUpperCase();

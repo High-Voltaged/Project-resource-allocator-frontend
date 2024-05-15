@@ -48,70 +48,77 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ user }) => {
             <span className="text-xl font-bold text-title">Update Your Profile</span>
             <div className="w-full flex items-center justify-between space-x-4">
               <div>
-                <label className="text-slate-700" htmlFor="email">
-                  Email
+                <label>
+                  <Text as="div" size="2" mb="1" weight="bold">
+                    Email
+                  </Text>
+                  <TextField.Root
+                    id="email"
+                    size="3"
+                    className="w-full rounded-xl border border-slate-100 placeholder-slate-400"
+                    placeholder="Your email"
+                    name="email"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <TextField.Slot>
+                      <EnvelopeClosedIcon />
+                    </TextField.Slot>
+                  </TextField.Root>
+                  {formik.touched.email && formik.errors.email && (
+                    <p className="pl-2 text-sm text-red-500 !mt-1">{formik.errors.email}</p>
+                  )}
                 </label>
-                <TextField.Root
-                  id="email"
-                  size="3"
-                  className="w-full rounded-xl border border-slate-100 placeholder-slate-400"
-                  placeholder="Your email"
-                  name="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                >
-                  <TextField.Slot>
-                    <EnvelopeClosedIcon />
-                  </TextField.Slot>
-                </TextField.Root>
-                {formik.touched.email && formik.errors.email && (
-                  <p className="pl-2 text-sm text-red-500 !mt-1">{formik.errors.email}</p>
-                )}
               </div>
               <div>
-                <label className="text-slate-700" htmlFor="firstName">
-                  First Name
+                <label>
+                  <Text as="div" size="2" mb="1" weight="bold">
+                    First Name
+                  </Text>
+
+                  <TextField.Root
+                    id="firstName"
+                    size="3"
+                    className="w-full rounded-xl border border-slate-100 placeholder-slate-400"
+                    placeholder="Your first name"
+                    name="firstName"
+                    value={formik.values.firstName}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <TextField.Slot>
+                      <PersonIcon />
+                    </TextField.Slot>
+                  </TextField.Root>
+                  {formik.touched.firstName && formik.errors.firstName && (
+                    <p className="pl-2 text-sm text-red-500 !mt-1">{formik.errors.firstName}</p>
+                  )}
                 </label>
-                <TextField.Root
-                  id="firstName"
-                  size="3"
-                  className="w-full rounded-xl border border-slate-100 placeholder-slate-400"
-                  placeholder="Your first name"
-                  name="firstName"
-                  value={formik.values.firstName}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                >
-                  <TextField.Slot>
-                    <PersonIcon />
-                  </TextField.Slot>
-                </TextField.Root>
-                {formik.touched.firstName && formik.errors.firstName && (
-                  <p className="pl-2 text-sm text-red-500 !mt-1">{formik.errors.firstName}</p>
-                )}
               </div>
               <div>
                 <label className="text-slate-700" htmlFor="lastName">
-                  Last Name
+                  <Text as="div" size="2" mb="1" weight="bold">
+                    Last Name
+                  </Text>
+                  <TextField.Root
+                    id="lastName"
+                    size="3"
+                    className="w-full rounded-xl border border-slate-100 placeholder-slate-400"
+                    placeholder="Your last name"
+                    name="lastName"
+                    value={formik.values.lastName}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <TextField.Slot>
+                      <PersonIcon />
+                    </TextField.Slot>
+                  </TextField.Root>
+                  {formik.touched.lastName && formik.errors.lastName && (
+                    <p className="pl-2 text-sm text-red-500 !mt-1">{formik.errors.lastName}</p>
+                  )}
                 </label>
-                <TextField.Root
-                  id="lastName"
-                  size="3"
-                  className="w-full rounded-xl border border-slate-100 placeholder-slate-400"
-                  placeholder="Your last name"
-                  name="lastName"
-                  value={formik.values.lastName}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                >
-                  <TextField.Slot>
-                    <PersonIcon />
-                  </TextField.Slot>
-                </TextField.Root>
-                {formik.touched.lastName && formik.errors.lastName && (
-                  <p className="pl-2 text-sm text-red-500 !mt-1">{formik.errors.lastName}</p>
-                )}
               </div>
             </div>
             <div className="flex justify-center w-full">
