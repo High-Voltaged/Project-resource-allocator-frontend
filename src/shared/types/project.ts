@@ -4,8 +4,8 @@ export enum ProjectType {
 }
 
 export enum ProjectRole {
-  Employee,
-  Admin,
+  Employee = "Employee",
+  Admin = "Admin",
 }
 
 export interface IProject {

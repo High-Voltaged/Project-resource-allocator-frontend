@@ -2,23 +2,32 @@ import { useMutation } from "@apollo/client";
 import { useFormik } from "formik";
 import { Button, Dialog, Select, Text, TextField } from "@radix-ui/themes";
 
-import { CREATE_PROJECT, GET_PROJECTS } from "~/shared/graphql/project";
-import { ProjectType } from "~/shared/types/project";
+import { CREATE_PROJECT, GET_MY_PROJECTS, UPDATE_PROJECT } from "~/shared/graphql/project";
+import { IProject, ProjectType } from "~/shared/types/project";
 
 import { editProjectSchema, initialProjectValues } from "../validation";
-import { ICreateProjectInput, TCreateProjectOutput } from "../types";
+import { ICreateProjectInput, IUpdateProjectInput, TCreateProjectOutput } from "../types";
 
-const CreateProjectForm: React.FC = () => {
-  const [createProject, { loading }] = useMutation<TCreateProjectOutput, ICreateProjectInput>(CREATE_PROJECT, {
-    refetchQueries: [GET_PROJECTS],
-    // onError: () => {}
-  });
+export interface ICreateProjectForm {
+  project?: IProject;
+}
 
-  const formik = useFormik<ICreateProjectInput>({
-    initialValues: initialProjectValues,
+const CreateProjectForm: React.FC<ICreateProjectForm> = ({ project }) => {
+  const [createProject, { loading }] = useMutation<TCreateProjectOutput, ICreateProjectInput | IUpdateProjectInput>(
+    !project ? CREATE_PROJECT : UPDATE_PROJECT,
+    {
+      refetchQueries: [GET_MY_PROJECTS],
+      // onError: () => {}
+    }
+  );
+
+  const formik = useFormik<ICreateProjectInput | IUpdateProjectInput>({
+    initialValues: project || initialProjectValues,
     enableReinitialize: true,
     validationSchema: editProjectSchema,
-    onSubmit: async (variables) => {
+    onSubmit: async (data) => {
+      const id = project?.id || null;
+      const variables = id ? { id, ...data } : data;
       await createProject({ variables });
       formik.resetForm();
     },
@@ -28,7 +37,7 @@ const CreateProjectForm: React.FC = () => {
     <form onSubmit={formik.handleSubmit} className="flex flex-col items-start w-full space-y-6">
       <div className="w-full">
         <label>
-          <Text as="div" size="2" mb="1" weight="bold">
+          <Text as="div" size="2" mb="1">
             Name
           </Text>
           <TextField.Root
@@ -47,11 +56,11 @@ const CreateProjectForm: React.FC = () => {
       </div>
       <div className="w-full">
         <label>
-          <Text as="div" size="2" mb="1" weight="bold">
+          <Text as="div" size="2" mb="1">
             Type
           </Text>
           <Select.Root
-            defaultValue={ProjectType.Scrum}
+            defaultValue={formik.values.type || ProjectType.Scrum}
             value={formik.values.type}
             onValueChange={(value) => formik.setFieldValue("type", value)}
           >
@@ -67,13 +76,13 @@ const CreateProjectForm: React.FC = () => {
         </label>
       </div>
 
-      <div className="flex justify-end w-full space-x-4">
+      <div className="flex justify-center w-full space-x-4">
         <Dialog.Close>
-          <Button variant="soft" color="gray" className="cursor-pointer">
+          <Button variant="soft" size="3" color="gray" className="cursor-pointer">
             Cancel
           </Button>
         </Dialog.Close>
-        <Button loading={loading} className="cursor-pointer" type="submit">
+        <Button loading={loading} size="3" className="cursor-pointer" type="submit">
           Submit
         </Button>
       </div>

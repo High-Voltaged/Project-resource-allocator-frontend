@@ -6,4 +6,8 @@ export interface ICreateProjectInput {
   type: ProjectType;
 }
 
+export interface IUpdateProjectInput extends ICreateProjectInput {
+  id: string;
+}
+
 export type TCreateProjectOutput = QueryOutput<IProject>;

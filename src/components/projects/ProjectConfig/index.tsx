@@ -1,32 +1,33 @@
 import { Dialog, Tabs } from "@radix-ui/themes";
 import { ReactNode } from "react";
 import { IProject } from "~/shared/types/project";
+import ProjectSettings from "./ProjectSettings";
 
-export interface ProjectSettingsProps {
+export interface ProjectConfigProps {
   project: IProject;
   children: ReactNode;
 }
 
-const ProjectSettings: React.FC<ProjectSettingsProps> = ({ project, children }) => {
+const ProjectConfig: React.FC<ProjectConfigProps> = ({ project, children }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>{children}</Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content size="4" maxWidth="800px" className="h-[600px]">
         <Dialog.Title>Project Settings</Dialog.Title>
         <Tabs.Root defaultValue="settings">
           <Tabs.List>
             <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
             <Tabs.Trigger value="members">Members</Tabs.Trigger>
-            <Tabs.Trigger value="danger">Danger Zone</Tabs.Trigger>
           </Tabs.List>
 
-          <Tabs.Content value="settings"></Tabs.Content>
+          <Tabs.Content value="settings">
+            <ProjectSettings project={project} />
+          </Tabs.Content>
           <Tabs.Content value="members"></Tabs.Content>
-          <Tabs.Content value="danger"></Tabs.Content>
         </Tabs.Root>
       </Dialog.Content>
     </Dialog.Root>
   );
 };
 
-export default ProjectSettings;
+export default ProjectConfig;
