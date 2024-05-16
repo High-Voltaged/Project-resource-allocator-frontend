@@ -48,9 +48,11 @@ const ProjectsContainer: React.FC = () => {
             </Dialog.Content>
           </Dialog.Root>
 
-          <Skeleton loading={loading}>
-            {projects.length ? projects.map((project) => <ProjectItem key={project.id} project={project} />) : null}
-          </Skeleton>
+          <Skeleton loading={loading} className="h-[200px]" />
+          <Skeleton loading={loading} className="h-[200px]" />
+          <Skeleton loading={loading} className="h-[200px]" />
+
+          {projects.length ? projects.map((project) => <ProjectItem key={project.id} project={project} />) : null}
         </div>
         <Pagination page={page} count={Math.ceil(itemCount / PAGE_ITEMS_COUNT)} onChange={(v) => setPage(v)} />
       </div>

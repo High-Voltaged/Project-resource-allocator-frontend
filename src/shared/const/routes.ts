@@ -3,9 +3,9 @@ export const BaseRoutes = {
   LOGIN: "/login",
   REGISTER: "/register",
   PROJECTS: "/projects",
+  PROJECT: "/projects/:id",
 };
 
 export const MyRoutes = {
   SETTINGS: "/my/settings",
-  // PROJECTS: '/my/projects'
 };

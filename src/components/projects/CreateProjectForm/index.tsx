@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { Button, Dialog, Select, Text, TextField } from "@radix-ui/themes";
 import { useState } from "react";
 
-import { CREATE_PROJECT, GET_MY_PROJECTS, UPDATE_PROJECT } from "~/shared/graphql/project";
+import { CREATE_PROJECT, GET_MY_PROJECTS, GET_PROJECT_BY_ID, UPDATE_PROJECT } from "~/shared/graphql/project";
 import { IProject, ProjectType } from "~/shared/types/project";
 import ToastContainer from "~/components/shared/Toast";
 import { ERROR_TITLE, SUCCESS_TITLE } from "~/shared/const/misc";
@@ -22,7 +22,7 @@ const CreateProjectForm: React.FC<ICreateProjectForm> = ({ project }) => {
     TCreateProjectOutput,
     ICreateProjectInput | IUpdateProjectInput
   >(!project ? CREATE_PROJECT : UPDATE_PROJECT, {
-    refetchQueries: [GET_MY_PROJECTS],
+    refetchQueries: [GET_MY_PROJECTS, GET_PROJECT_BY_ID],
     onCompleted: () => setToastOpen(true),
     onError: () => setToastOpen(true),
   });
@@ -39,7 +39,7 @@ const CreateProjectForm: React.FC<ICreateProjectForm> = ({ project }) => {
     },
   });
 
-  const toastMessage = error?.message || "The project was created successfully.";
+  const toastMessage = error?.message || `The project was ${!project ? "created" : "updated"} successfully.`;
 
   return (
     <form onSubmit={formik.handleSubmit} className="flex flex-col items-start w-full space-y-6">

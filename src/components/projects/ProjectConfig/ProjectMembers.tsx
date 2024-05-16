@@ -18,7 +18,7 @@ const ProjectMembers: React.FC<ProjectMembersProps> = ({ project }) => {
       </div>
       <div className="flex flex-col w-full space-y-4">
         <Heading as="h3" size="3">
-          Current Project Members
+          Current project members
         </Heading>
         <ProjectMembersList project={project} />
       </div>

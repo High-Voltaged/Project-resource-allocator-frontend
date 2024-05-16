@@ -12,7 +12,7 @@ const ProjectSettings: React.FC<ProjectSettingsProps> = ({ project }) => {
     <div className="flex flex-col w-full h-full px-6 py-4">
       <div className="flex flex-col w-full space-y-4">
         <Heading as="h3" size="3">
-          Update Your Project Information
+          Update your project information
         </Heading>
         <CreateProjectForm project={project} />
       </div>

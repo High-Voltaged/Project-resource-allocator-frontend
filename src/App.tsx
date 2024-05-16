@@ -5,6 +5,7 @@ import Register from "~/pages/Register";
 import Login from "~/pages/Login";
 import ProjectsPage from "~/pages/Projects";
 import SettingsPage from "~/pages/user/Settings";
+import ProjectByIdPage from "~/pages/ProjectById";
 
 import { BaseRoutes, MyRoutes } from "~/shared/const/routes";
 import { getLSValue } from "~/shared/utils";
@@ -28,6 +29,7 @@ const App = () => {
         <Route path={BaseRoutes.LOGIN} element={<Login />} />
         <Route path={BaseRoutes.REGISTER} element={<Register />} />
         <Route path={BaseRoutes.PROJECTS} element={<ProjectsPage />} />
+        <Route path={BaseRoutes.PROJECT} element={<ProjectByIdPage />} />
 
         <Route path={MyRoutes.SETTINGS} element={<SettingsPage />} />
       </Routes>
