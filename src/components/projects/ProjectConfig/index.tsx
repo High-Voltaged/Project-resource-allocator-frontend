@@ -2,6 +2,7 @@ import { Dialog, Tabs } from "@radix-ui/themes";
 import { ReactNode } from "react";
 import { IProject } from "~/shared/types/project";
 import ProjectSettings from "./ProjectSettings";
+import ProjectMembers from "./ProjectMembers";
 
 export interface ProjectConfigProps {
   project: IProject;
@@ -23,7 +24,9 @@ const ProjectConfig: React.FC<ProjectConfigProps> = ({ project, children }) => {
           <Tabs.Content value="settings">
             <ProjectSettings project={project} />
           </Tabs.Content>
-          <Tabs.Content value="members"></Tabs.Content>
+          <Tabs.Content value="members">
+            <ProjectMembers project={project} />
+          </Tabs.Content>
         </Tabs.Root>
       </Dialog.Content>
     </Dialog.Root>

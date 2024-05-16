@@ -1,6 +1,6 @@
 import { GearIcon } from "@radix-ui/react-icons";
-import { Avatar, Button, Card, Text } from "@radix-ui/themes";
-import { IProject, ProjectRole } from "~/shared/types/project";
+import { Avatar, Card, IconButton, Text } from "@radix-ui/themes";
+import { IProject, UserRole } from "~/shared/types/project";
 import { getProjectLabel } from "~/shared/utils";
 import ProjectConfig from "../ProjectConfig";
 
@@ -9,7 +9,7 @@ interface ProjectItemProps {
 }
 
 const ProjectItem: React.FC<ProjectItemProps> = ({ project }) => {
-  const isAdmin = project.role === ProjectRole.Admin;
+  const isAdmin = project.role === UserRole.Admin;
 
   return (
     <Card size="2">
@@ -18,9 +18,9 @@ const ProjectItem: React.FC<ProjectItemProps> = ({ project }) => {
           <Avatar size="3" fallback={getProjectLabel(project.name)} color="indigo" />
           {isAdmin && (
             <ProjectConfig project={project}>
-              <Button variant="soft" className="p-2 cursor-pointer">
+              <IconButton variant="soft" className="cursor-pointer">
                 <GearIcon />
-              </Button>
+              </IconButton>
             </ProjectConfig>
           )}
         </div>

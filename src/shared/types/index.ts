@@ -13,3 +13,13 @@ export enum LSKey {
 export interface QueryOutput<T> {
   result: T;
 }
+
+export interface PaginationArgs {
+  limit: number;
+  offset: number;
+}
+
+export interface PaginatedType<T> {
+  items: T[];
+  count: number;
+}

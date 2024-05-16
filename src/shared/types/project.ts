@@ -3,7 +3,7 @@ export enum ProjectType {
   Kanban = "Kanban",
 }
 
-export enum ProjectRole {
+export enum UserRole {
   Employee = "Employee",
   Admin = "Admin",
 }
@@ -13,5 +13,13 @@ export interface IProject {
   name: string;
   type: ProjectType;
   startAt: string;
-  role: ProjectRole;
+  role: UserRole;
+}
+
+export interface IProjectUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: UserRole;
 }

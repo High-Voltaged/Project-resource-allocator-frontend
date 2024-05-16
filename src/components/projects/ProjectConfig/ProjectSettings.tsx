@@ -1,6 +1,6 @@
+import { Heading, Separator } from "@radix-ui/themes";
 import { IProject } from "~/shared/types/project";
 import CreateProjectForm from "../CreateProjectForm";
-import { Heading, Separator } from "@radix-ui/themes";
 import ProjectDeletion from "./ProjectDeletion";
 
 export interface ProjectSettingsProps {

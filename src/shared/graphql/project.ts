@@ -1,13 +1,16 @@
 import { gql } from "@apollo/client";
 
 export const GET_MY_PROJECTS = gql`
-  query myProjects {
-    result: myProjects {
-      id
-      name
-      type
-      startAt
-      role
+  query myProjects($limit: Int, $offset: Int) {
+    result: myProjects(limit: $limit, offset: $offset) {
+      items {
+        id
+        name
+        type
+        startAt
+        role
+      }
+      count
     }
   }
 `;
@@ -37,5 +40,26 @@ export const UPDATE_PROJECT = gql`
 export const DELETE_PROJECT = gql`
   mutation deleteProject($id: String!) {
     result: deleteProject(id: $id)
+  }
+`;
+
+export const ADD_PROJECT_MEMBER = gql`
+  mutation addProjectMember($projectId: String!, $email: String!, $role: UserRole!) {
+    result: addUserToProject(projectId: $projectId, email: $email, role: $role)
+  }
+`;
+
+export const PROJECT_USERS = gql`
+  query projectUsers($projectId: String!, $limit: Int, $offset: Int) {
+    result: projectUsers(projectId: $projectId, limit: $limit, offset: $offset) {
+      items {
+        id
+        lastName
+        firstName
+        email
+        role
+      }
+      count
+    }
   }
 `;

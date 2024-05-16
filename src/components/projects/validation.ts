@@ -14,3 +14,7 @@ export const editProjectSchema = yup.object().shape({
   name: yup.string().min(PROJECT_INPUT_LIMITS.NAME_MIN).max(PROJECT_INPUT_LIMITS.NAME_MAX).required("Name is required"),
   type: yup.string().oneOf(Object.values(ProjectType)).required("Type is required"),
 });
+
+export const inviteMemberSchema = yup.object().shape({
+  email: yup.string().email().required(),
+});
