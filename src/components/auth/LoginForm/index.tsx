@@ -1,31 +1,33 @@
-import { useRef } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { Button, Link, TextField } from "@radix-ui/themes";
 import { EnvelopeClosedIcon, LockClosedIcon } from "@radix-ui/react-icons";
 
-import { showToastMessage } from "~/shared/utils";
 import useCurrentUser from "~/hooks/use-current-user";
 import { BaseRoutes } from "~/shared/const/routes";
 import { LOGIN_MUTATION } from "~/shared/graphql/auth";
+import ToastContainer from "~/components/shared/Toast";
+import { ERROR_TITLE, SUCCESS_TITLE } from "~/shared/const/misc";
 
 import { ILoginInput, TLoginOutput } from "../types";
 import { initialLoginValues, loginSchema } from "../validation";
 
 const LoginForm: React.FC = () => {
-  const [login, { loading }] = useMutation<TLoginOutput, ILoginInput>(LOGIN_MUTATION, {
+  const [toastOpen, setToastOpen] = useState(false);
+
+  const [login, { loading, error }] = useMutation<TLoginOutput, ILoginInput>(LOGIN_MUTATION, {
     onCompleted: async (data) => {
       await updateCurrentUser(data.result.accessToken);
       navigate(BaseRoutes.PROJECTS);
     },
     onError: (error) => {
-      // showToastMessage(error.message, toast, "error");
+      setToastOpen(true);
       console.error(error.message);
     },
   });
 
-  const toast = useRef(null);
   const { updateCurrentUser } = useCurrentUser();
   const navigate = useNavigate();
 
@@ -38,7 +40,12 @@ const LoginForm: React.FC = () => {
 
   return (
     <form className="flex flex-col items-center w-full space-y-6 mt-6" onSubmit={formik.handleSubmit}>
-      {/* <Toast ref={toast} position="bottom-center" /> */}
+      <ToastContainer
+        title={error ? ERROR_TITLE : SUCCESS_TITLE}
+        message={error?.message || ""}
+        open={toastOpen}
+        setOpen={setToastOpen}
+      />
 
       <div className="w-full">
         <TextField.Root

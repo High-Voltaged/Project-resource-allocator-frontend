@@ -1,9 +1,12 @@
 import { useMutation } from "@apollo/client";
 import { useFormik } from "formik";
 import { Button, Dialog, Select, Text, TextField } from "@radix-ui/themes";
+import { useState } from "react";
 
 import { CREATE_PROJECT, GET_MY_PROJECTS, UPDATE_PROJECT } from "~/shared/graphql/project";
 import { IProject, ProjectType } from "~/shared/types/project";
+import ToastContainer from "~/components/shared/Toast";
+import { ERROR_TITLE, SUCCESS_TITLE } from "~/shared/const/misc";
 
 import { editProjectSchema, initialProjectValues } from "../validation";
 import { ICreateProjectInput, IUpdateProjectInput, TCreateProjectOutput } from "../types";
@@ -13,13 +16,16 @@ export interface ICreateProjectForm {
 }
 
 const CreateProjectForm: React.FC<ICreateProjectForm> = ({ project }) => {
-  const [createProject, { loading }] = useMutation<TCreateProjectOutput, ICreateProjectInput | IUpdateProjectInput>(
-    !project ? CREATE_PROJECT : UPDATE_PROJECT,
-    {
-      refetchQueries: [GET_MY_PROJECTS],
-      // onError: () => {}
-    }
-  );
+  const [toastOpen, setToastOpen] = useState(false);
+
+  const [createProject, { loading, error }] = useMutation<
+    TCreateProjectOutput,
+    ICreateProjectInput | IUpdateProjectInput
+  >(!project ? CREATE_PROJECT : UPDATE_PROJECT, {
+    refetchQueries: [GET_MY_PROJECTS],
+    onCompleted: () => setToastOpen(true),
+    onError: () => setToastOpen(true),
+  });
 
   const formik = useFormik<ICreateProjectInput | IUpdateProjectInput>({
     initialValues: project || initialProjectValues,
@@ -33,8 +39,16 @@ const CreateProjectForm: React.FC<ICreateProjectForm> = ({ project }) => {
     },
   });
 
+  const toastMessage = error?.message || "The project was created successfully.";
+
   return (
     <form onSubmit={formik.handleSubmit} className="flex flex-col items-start w-full space-y-6">
+      <ToastContainer
+        title={error ? ERROR_TITLE : SUCCESS_TITLE}
+        message={toastMessage}
+        open={toastOpen}
+        setOpen={setToastOpen}
+      />
       <div className="w-full">
         <label>
           <Text as="div" size="2" mb="1">

@@ -22,7 +22,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
         <Avatar fallback={getUserNameLabel(user)} size="4" />
       </NavigationMenu.Trigger>
 
-      <NavigationMenu.Content className="min-w-[220px] absolute right-0 mt-2 bg-white border border-slate-300 rounded-lg py-5 px-4 shadow-inner">
+      <NavigationMenu.Content className="min-w-[220px] absolute right-0 mt-2 bg-white border border-slate-300 rounded-lg py-5 px-4 shadow-inner z-[1000]">
         <ul>
           <NavigationMenu.Item
             className="flex items-center space-x-2 h-10 p-3 leading-none text-featured rounded-md select-none outline-none hover:bg-violet-200 cursor-pointer"

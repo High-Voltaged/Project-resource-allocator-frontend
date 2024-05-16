@@ -5,9 +5,10 @@ import { useState } from "react";
 import Pagination from "~/components/shared/Pagination";
 import { PROJECT_USERS } from "~/shared/graphql/project";
 import { IProject } from "~/shared/types/project";
-import { PAGE_ITEMS_COUNT } from "~/shared/const/pagination";
 
 import { IMembersListVars, TProjectUsersPaginatedOutput } from "../types";
+
+const PAGE_ITEMS_COUNT = 4;
 
 export interface ProjectMembersListProps {
   project: IProject;

@@ -1,26 +1,27 @@
-import { useRef } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
 import { Button, Link, TextField } from "@radix-ui/themes";
 import { EnvelopeClosedIcon, LockClosedIcon, PersonIcon } from "@radix-ui/react-icons";
 
-import { showToastMessage } from "~/shared/utils";
 import { REGISTER_MUTATION } from "~/shared/graphql/auth";
 import { BaseRoutes } from "~/shared/const/routes";
-// import ToastContainer from "~/components/shared/Toast/Toast";
+import ToastContainer from "~/components/shared/Toast";
+import { ERROR_TITLE, SUCCESS_TITLE } from "~/shared/const/misc";
 
 import { IRegisterInput } from "../types";
 import { initialRegisterValues, registerSchema } from "../validation";
 
 const RegisterForm: React.FC = () => {
-  const [register, { loading }] = useMutation(REGISTER_MUTATION, {
-    // onCompleted: (_data) => showToastMessage("You registered successfully!", toast, "info"),
+  const [toastOpen, setToastOpen] = useState(false);
+
+  const [register, { loading, error }] = useMutation(REGISTER_MUTATION, {
+    onCompleted: (_data) => setToastOpen(true),
     onError: (error) => {
-      // showToastMessage(error.message, toast, "error");
+      setToastOpen(true);
       console.error(error.message);
     },
   });
-  const toast = useRef(null);
 
   const formik = useFormik<IRegisterInput>({
     initialValues: initialRegisterValues,
@@ -29,8 +30,16 @@ const RegisterForm: React.FC = () => {
     onSubmit: (variables) => register({ variables }),
   });
 
+  const toastMessage = error?.message || "Your account was created successfully.";
+
   return (
     <form className="flex flex-col items-center w-full space-y-6 mt-6" onSubmit={formik.handleSubmit}>
+      <ToastContainer
+        title={error ? ERROR_TITLE : SUCCESS_TITLE}
+        message={toastMessage}
+        open={toastOpen}
+        setOpen={setToastOpen}
+      />
       <div className="w-full">
         <TextField.Root
           id="firstName"

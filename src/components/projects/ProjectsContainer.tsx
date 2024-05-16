@@ -5,7 +5,6 @@ import { useState } from "react";
 
 import PageWrapper from "~/containers/PageWrapper";
 import { GET_MY_PROJECTS } from "~/shared/graphql/project";
-import { PAGE_ITEMS_COUNT } from "~/shared/const/pagination";
 import Pagination from "~/components/shared/Pagination";
 import { RootState } from "~/state";
 import { PaginationArgs } from "~/shared/types";
@@ -13,6 +12,8 @@ import { PaginationArgs } from "~/shared/types";
 import ProjectItem from "./ProjectItem";
 import CreateProjectForm from "./CreateProjectForm";
 import { TMyProjectsPaginatedOutput } from "./types";
+
+const PAGE_ITEMS_COUNT = 11;
 
 const ProjectsContainer: React.FC = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -33,7 +34,7 @@ const ProjectsContainer: React.FC = () => {
 
   return (
     <PageWrapper>
-      <div className="flex flex-col items-start space-y-4">
+      <div className="flex flex-col items-start space-y-4 w-full">
         <div className="w-full grid grid-cols-4 auto-rows-max gap-4">
           <Dialog.Root>
             <Dialog.Trigger>

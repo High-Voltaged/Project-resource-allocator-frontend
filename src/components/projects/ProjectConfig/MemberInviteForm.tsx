@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { EnvelopeClosedIcon } from "@radix-ui/react-icons";
 import { useFormik } from "formik";
@@ -5,6 +6,9 @@ import { Button, Select, TextField } from "@radix-ui/themes";
 
 import { ADD_PROJECT_MEMBER, PROJECT_USERS } from "~/shared/graphql/project";
 import { IProject, UserRole } from "~/shared/types/project";
+import ToastContainer from "~/components/shared/Toast";
+import { ERROR_TITLE, SUCCESS_TITLE } from "~/shared/const/misc";
+
 import { inviteMemberSchema } from "../validation";
 import { IAddProjectUserInput } from "../types";
 
@@ -13,8 +17,11 @@ export interface MemberInviteFormProps {
 }
 
 const MemberInviteForm: React.FC<MemberInviteFormProps> = ({ project }) => {
-  const [addMember, { loading }] = useMutation<void, IAddProjectUserInput>(ADD_PROJECT_MEMBER, {
+  const [toastOpen, setToastOpen] = useState(false);
+
+  const [addMember, { loading, error }] = useMutation<void, IAddProjectUserInput>(ADD_PROJECT_MEMBER, {
     refetchQueries: [PROJECT_USERS],
+    onError: () => setToastOpen(true),
   });
 
   const formik = useFormik({
@@ -31,6 +38,13 @@ const MemberInviteForm: React.FC<MemberInviteFormProps> = ({ project }) => {
 
   return (
     <form onSubmit={formik.handleSubmit} className="flex items-center space-x-4">
+      <ToastContainer
+        title={error ? ERROR_TITLE : SUCCESS_TITLE}
+        message={error?.message || ""}
+        open={toastOpen}
+        setOpen={setToastOpen}
+      />
+
       <div className="flex items-center space-x-4">
         <div>
           <TextField.Root

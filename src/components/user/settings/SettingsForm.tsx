@@ -3,12 +3,14 @@ import { useMutation } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { Button, Flex, Switch, Text, TextField } from "@radix-ui/themes";
 import { EnvelopeClosedIcon, PersonIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
 
 import { IUser } from "~/shared/types/user";
-import { showToastMessage } from "~/shared/utils";
 import { UPDATE_MY_PROFILE } from "~/shared/graphql/user";
 import { setCurrentUser } from "~/state/user-slice";
 import { QueryOutput } from "~/shared/types";
+import ToastContainer from "~/components/shared/Toast";
+import { ERROR_TITLE, SUCCESS_TITLE } from "~/shared/const/misc";
 
 import { IUpdateProfileInput } from "./types";
 import { updateProfileSchema } from "./validation";
@@ -18,30 +20,41 @@ export interface SettingsFormProps {
 }
 
 const SettingsForm: React.FC<SettingsFormProps> = ({ user }) => {
+  const [toastOpen, setToastOpen] = useState(false);
+
   const dispatch = useDispatch();
-  const [updateProfile, { loading }] = useMutation<QueryOutput<IUser>, IUpdateProfileInput>(UPDATE_MY_PROFILE, {
+  const [updateProfile, { loading, error }] = useMutation<QueryOutput<IUser>, IUpdateProfileInput>(UPDATE_MY_PROFILE, {
     onCompleted: (data) => {
       dispatch(setCurrentUser(data.result));
-      // showToastMessage("You've successfully updated your profile!", toast, "info");
+      setToastOpen(true);
     },
     onError: (error) => {
-      // showToastMessage(error.message, toast, "error");
+      setToastOpen(true);
       console.error(error.message);
     },
   });
-
-  // const toast = useRef<Toast>(null);
 
   const formik = useFormik<IUpdateProfileInput>({
     initialValues: user,
     enableReinitialize: true,
     validationSchema: updateProfileSchema,
-    onSubmit: (variables) => updateProfile({ variables }),
+    onSubmit: (values) => {
+      const { email, ...rest } = values;
+      const variables = { ...rest, ...(email !== user.email && { email }) };
+      updateProfile({ variables });
+    },
   });
+
+  const toastMessage = error?.message || "Your profile was updated.";
 
   return (
     <>
-      {/* <Toast ref={toast} position="bottom-center" /> */}
+      <ToastContainer
+        title={error ? ERROR_TITLE : SUCCESS_TITLE}
+        message={toastMessage}
+        open={toastOpen}
+        setOpen={setToastOpen}
+      />
       <div className="flex flex-col w-full p-10 space-y-10">
         <div className="flex flex-col md:flex-row items-start space-y-10 md:space-y-0 md:space-x-10 w-full">
           <form onSubmit={formik.handleSubmit} className="flex flex-col items-start w-full space-y-6">
