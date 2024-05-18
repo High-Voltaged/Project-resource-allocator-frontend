@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
-import { TrashIcon } from "@radix-ui/react-icons";
 import { Button } from "@radix-ui/themes";
+import { Trash2Icon } from "lucide-react";
 
 import { DELETE_PROJECT, GET_MY_PROJECTS } from "~/shared/graphql/project";
 import { IProject } from "~/shared/types/project";
@@ -25,7 +25,7 @@ const ProjectDeletion: React.FC<ProjectDeletionProps> = ({ project }) => {
       loading={loading}
       className="max-w-56 cursor-pointer"
     >
-      <TrashIcon /> Delete the project
+      <Trash2Icon className="w-5 h-5" /> Delete the project
     </Button>
   );
 };

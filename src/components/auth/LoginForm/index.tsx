@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { Button, Link, TextField } from "@radix-ui/themes";
-import { EnvelopeClosedIcon, LockClosedIcon } from "@radix-ui/react-icons";
+import { LockIcon, MailIcon } from "lucide-react";
 
 import useCurrentUser from "~/hooks/use-current-user";
 import { BaseRoutes } from "~/shared/const/routes";
@@ -59,7 +59,7 @@ const LoginForm: React.FC = () => {
           onBlur={formik.handleBlur}
         >
           <TextField.Slot>
-            <EnvelopeClosedIcon />
+            <MailIcon className="w-5 h-5" />
           </TextField.Slot>
         </TextField.Root>
         {formik.touched.email && formik.errors.email && (
@@ -79,7 +79,7 @@ const LoginForm: React.FC = () => {
           onBlur={formik.handleBlur}
         >
           <TextField.Slot>
-            <LockClosedIcon />
+            <LockIcon className="w-5 h-5" />
           </TextField.Slot>
         </TextField.Root>
         {formik.touched.password && formik.errors.password && (

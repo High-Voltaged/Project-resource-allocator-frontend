@@ -42,7 +42,7 @@ const ProjectsContainer: React.FC = () => {
                 + Create a new project
               </Button>
             </Dialog.Trigger>
-            <Dialog.Content maxWidth="450px">
+            <Dialog.Content size="4" maxWidth="450px">
               <Dialog.Title>Create a Project</Dialog.Title>
               <CreateProjectForm />
             </Dialog.Content>

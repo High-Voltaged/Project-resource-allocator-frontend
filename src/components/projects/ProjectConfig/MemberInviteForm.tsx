@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { EnvelopeClosedIcon } from "@radix-ui/react-icons";
 import { useFormik } from "formik";
 import { Button, Select, TextField } from "@radix-ui/themes";
+import { MailIcon } from "lucide-react";
 
 import { ADD_PROJECT_MEMBER, PROJECT_USERS } from "~/shared/graphql/project";
 import { IProject, UserRole } from "~/shared/types/project";
@@ -58,7 +58,7 @@ const MemberInviteForm: React.FC<MemberInviteFormProps> = ({ project }) => {
             onBlur={formik.handleBlur}
           >
             <TextField.Slot>
-              <EnvelopeClosedIcon />
+              <MailIcon className="w-5 h-5" />
             </TextField.Slot>
           </TextField.Root>
           {formik.touched.email && formik.errors.email && (

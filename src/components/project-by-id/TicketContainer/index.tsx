@@ -5,7 +5,7 @@ import { GET_TICKETS_BY_PROJECT_ID } from "~/shared/graphql/ticket";
 import { QueryOutput } from "~/shared/types";
 import { ITicket, TicketStatus } from "~/shared/types/ticket";
 
-import { TicketStatusColors } from "./const";
+import { TicketStatusItems } from "./const";
 
 interface TicketContainerProps {
   projectId: string;
@@ -25,9 +25,9 @@ const TicketContainer: React.FC<TicketContainerProps> = ({ projectId }) => {
         {Object.values(TicketStatus).map((status) => (
           <div key={status} className="flex flex-col items-start flex-1 h-full space-y-4">
             <div className="flex justify-center w-full">
-              <Badge color={TicketStatusColors[status] as any} size="3">
+              <Badge color={TicketStatusItems[status].color as any} size="3">
                 <Heading as="h3" size="3">
-                  {status}
+                  {TicketStatusItems[status].label}
                 </Heading>
               </Badge>
             </div>
@@ -35,8 +35,8 @@ const TicketContainer: React.FC<TicketContainerProps> = ({ projectId }) => {
               {tickets
                 .filter((ticket) => ticket.status === status)
                 .map((ticket) => (
-                  <Card key={ticket.name} size="2" className="w-full cursor-pointer">
-                    {ticket.name}
+                  <Card key={ticket.title} size="2" className="w-full cursor-pointer">
+                    {ticket.title}
                   </Card>
                 ))}
             </div>

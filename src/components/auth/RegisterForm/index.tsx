@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
 import { Button, Link, TextField } from "@radix-ui/themes";
-import { EnvelopeClosedIcon, LockClosedIcon, PersonIcon } from "@radix-ui/react-icons";
 
 import { REGISTER_MUTATION } from "~/shared/graphql/auth";
 import { BaseRoutes } from "~/shared/const/routes";
@@ -11,6 +10,7 @@ import { ERROR_TITLE, SUCCESS_TITLE } from "~/shared/const/misc";
 
 import { IRegisterInput } from "../types";
 import { initialRegisterValues, registerSchema } from "../validation";
+import { LockIcon, MailIcon, UserIcon } from "lucide-react";
 
 const RegisterForm: React.FC = () => {
   const [toastOpen, setToastOpen] = useState(false);
@@ -52,7 +52,7 @@ const RegisterForm: React.FC = () => {
           onBlur={formik.handleBlur}
         >
           <TextField.Slot>
-            <PersonIcon />
+            <UserIcon className="w-5 h-5" />
           </TextField.Slot>
         </TextField.Root>
         {formik.touched.firstName && formik.errors.firstName && (
@@ -71,7 +71,7 @@ const RegisterForm: React.FC = () => {
           onBlur={formik.handleBlur}
         >
           <TextField.Slot>
-            <PersonIcon />
+            <UserIcon className="w-5 h-5" />
           </TextField.Slot>
         </TextField.Root>
         {formik.touched.lastName && formik.errors.lastName && (
@@ -90,7 +90,7 @@ const RegisterForm: React.FC = () => {
           onBlur={formik.handleBlur}
         >
           <TextField.Slot>
-            <EnvelopeClosedIcon />
+            <MailIcon className="w-5 h-5" />
           </TextField.Slot>
         </TextField.Root>
         {formik.touched.email && formik.errors.email && (
@@ -110,7 +110,7 @@ const RegisterForm: React.FC = () => {
           onBlur={formik.handleBlur}
         >
           <TextField.Slot>
-            <LockClosedIcon />
+            <LockIcon className="w-5 h-5" />
           </TextField.Slot>
         </TextField.Root>
         {formik.touched.password && formik.errors.password && (

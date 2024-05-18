@@ -1,5 +1,5 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { IconButton } from "@radix-ui/themes";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 interface PaginationProps {
   page: number;
@@ -31,7 +31,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, count, onChange }) => {
           disabled={page === 0}
           onClick={() => page > 0 && onChange(page - 1)}
         >
-          <ChevronLeftIcon />
+          <ChevronLeftIcon className="w-5 h-5" />
         </IconButton>
       )}
 
@@ -62,7 +62,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, count, onChange }) => {
           disabled={page === count - 1}
           onClick={() => page < count - 1 && onChange(page + 1)}
         >
-          <ChevronRightIcon />
+          <ChevronRightIcon className="w-5 h-5" />
         </IconButton>
       )}
     </div>

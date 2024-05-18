@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Heading, Skeleton } from "@radix-ui/themes";
+import { Heading, Separator, Skeleton } from "@radix-ui/themes";
 import { useParams } from "react-router-dom";
 
 import { GET_PROJECT_BY_ID } from "~/shared/graphql/project";
@@ -24,6 +24,7 @@ const ProjectByIdContainer: React.FC = () => {
             {project.name}
           </Heading>
           <ProjectToolbar project={project} />
+          <Separator size="4" className="bg-slate-300" />
           <TicketContainer projectId={project.id} />
         </div>
       )}

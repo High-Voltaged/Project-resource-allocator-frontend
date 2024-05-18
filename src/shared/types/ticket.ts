@@ -6,11 +6,36 @@ export enum TicketStatus {
   complete = "complete",
 }
 
+export enum TicketPriority {
+  lowest = "lowest",
+  low = "low",
+  medium = "medium",
+  high = "high",
+  highest = "highest",
+}
+
+export enum SkillLevel {
+  Beginner,
+  Intermediate,
+  Proficient,
+}
+
 export interface ITicket {
   id: string;
-  name: string;
+  title: string;
   description: string;
   status: TicketStatus;
-  priority: number;
-  dueTo: string;
+  priority: TicketPriority;
+  dueTo?: Date;
+  skills: ISkill[];
+}
+
+export interface ISkill {
+  id?: string;
+  name: string;
+}
+
+export interface UserSkill {
+  name: string;
+  level: SkillLevel;
 }

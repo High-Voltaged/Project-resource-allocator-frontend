@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { Button, Flex, Switch, Text, TextField } from "@radix-ui/themes";
-import { EnvelopeClosedIcon, PersonIcon } from "@radix-ui/react-icons";
-import { useState } from "react";
+import { MailIcon, UserIcon } from "lucide-react";
 
 import { IUser } from "~/shared/types/user";
 import { UPDATE_MY_PROFILE } from "~/shared/graphql/user";
@@ -76,7 +76,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ user }) => {
                     onBlur={formik.handleBlur}
                   >
                     <TextField.Slot>
-                      <EnvelopeClosedIcon />
+                      <MailIcon className="w-5 h-5" />
                     </TextField.Slot>
                   </TextField.Root>
                   {formik.touched.email && formik.errors.email && (
@@ -101,7 +101,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ user }) => {
                     onBlur={formik.handleBlur}
                   >
                     <TextField.Slot>
-                      <PersonIcon />
+                      <UserIcon className="w-5 h-5" />
                     </TextField.Slot>
                   </TextField.Root>
                   {formik.touched.firstName && formik.errors.firstName && (
@@ -125,7 +125,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ user }) => {
                     onBlur={formik.handleBlur}
                   >
                     <TextField.Slot>
-                      <PersonIcon />
+                      <UserIcon className="w-5 h-5" />
                     </TextField.Slot>
                   </TextField.Root>
                   {formik.touched.lastName && formik.errors.lastName && (
