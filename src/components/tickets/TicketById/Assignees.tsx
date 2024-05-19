@@ -38,25 +38,24 @@ const Assignees: React.FC<AssigneesProps> = ({ ticket }) => {
     setAssignees((ticket.assignees || []).map((a) => a.id));
   }, [ticket.assignees]);
 
-  const assignEmployee = async (userIds: string[]) => {
-    await Promise.all(
-      assignees.map((id) => {
-        if (userIds.includes(id)) return true;
+  const assignEmployees = async (userIds: string[]) => {
+    const assigneesToSave = userIds.filter((id) => !assignees.includes(id));
+    const assigneesToRemove = assignees.filter((id) => !userIds.includes(id));
 
-        return unassignUserToTicket({
+    await Promise.all(
+      assigneesToRemove.map((id) =>
+        unassignUserToTicket({
           variables: { userId: id, ticketId: ticket.id },
-        });
-      })
+        })
+      )
     );
 
     await Promise.all(
-      userIds.map((userId) => {
-        if (assignees.includes(userId)) return true;
-
-        return assignUserToTicket({
+      assigneesToSave.map((userId) =>
+        assignUserToTicket({
           variables: { userId, ticketId: ticket.id },
-        });
-      })
+        })
+      )
     );
   };
 
@@ -68,7 +67,7 @@ const Assignees: React.FC<AssigneesProps> = ({ ticket }) => {
       <MultiSelectFormField
         options={employees}
         defaultValue={assignees}
-        onValueChange={(v) => assignEmployee(v)}
+        onValueChange={(v) => assignEmployees(v)}
         placeholder="Select options"
         variant="destructive"
         color="indigo"

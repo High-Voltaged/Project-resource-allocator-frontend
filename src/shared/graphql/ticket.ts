@@ -51,6 +51,12 @@ export const UPDATE_TICKET_SKILLS = gql`
   }
 `;
 
+export const REMOVE_TICKET_SKILLS = gql`
+  mutation removeTicketSkills($skillNames: [String!]!, $ticketId: String!) {
+    removeTicketSkills(skillNames: $skillNames, ticketId: $ticketId)
+  }
+`;
+
 export const CREATE_TICKET = gql`
   mutation createTicket(
     $title: String!

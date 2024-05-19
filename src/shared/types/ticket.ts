@@ -36,7 +36,7 @@ export interface ITicket {
 }
 
 export interface ISkill {
-  id?: string;
+  id: string;
   name: string;
 }
 
@@ -47,5 +47,15 @@ export interface UserSkill {
 
 export interface ITicketUser {
   userId: string;
+  ticketId: string;
+}
+
+export interface UpdateTicketSkillsInput {
+  skills: UserSkill[];
+  ticketId: string;
+}
+
+export interface RemoveTicketSkillsInput {
+  skillNames: string[];
   ticketId: string;
 }

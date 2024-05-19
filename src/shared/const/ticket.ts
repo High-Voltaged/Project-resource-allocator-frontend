@@ -1,5 +1,5 @@
 import { ChevronDownIcon, ChevronUpIcon, ChevronsDownIcon, ChevronsUpIcon, CircleDotIcon } from "lucide-react";
-import { TicketPriority, TicketStatus } from "~/shared/types/ticket";
+import { SkillLevel, TicketPriority, TicketStatus } from "~/shared/types/ticket";
 
 export enum TICKET_INPUT_LIMITS {
   TITLE_MIN = 8,
@@ -8,11 +8,19 @@ export enum TICKET_INPUT_LIMITS {
   DESCRIPTION_MAX = 1000,
 }
 
-export const SKILL_LEVELS = [
-  { label: "Beginner", value: 0 },
-  { label: "Intermediate", value: 1 },
-  { label: "Proficient", value: 2 },
-];
+export const SKILL_LEVELS = {
+  [SkillLevel.Beginner]: "Beginner",
+  [SkillLevel.Intermediate]: "Intermediate",
+  [SkillLevel.Proficient]: "Proficient",
+};
+
+export const SKILL_LEVELS_MAP: { [key: string]: SkillLevel } = Object.entries(SKILL_LEVELS).reduce(
+  (acc, [key, value]) => {
+    acc[value] = Number(key) as SkillLevel;
+    return acc;
+  },
+  {} as { [key: string]: SkillLevel }
+);
 
 export const TicketStatusItems = {
   [TicketStatus.backlog]: { label: "Backlog", color: "orange" },

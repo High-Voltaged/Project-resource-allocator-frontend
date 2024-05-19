@@ -1,11 +1,10 @@
 import { Button, TextField } from "@radix-ui/themes";
 import { useFormik } from "formik";
-import { ISkill } from "~/shared/types/ticket";
 
 interface SkillFormProps {}
 
 const SkillForm: React.FC<SkillFormProps> = ({}) => {
-  const formik = useFormik<ISkill>({
+  const formik = useFormik<{ name: string }>({
     initialValues: { name: "" },
     onSubmit: async (data) => {
       console.log({ data });
