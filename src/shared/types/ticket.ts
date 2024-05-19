@@ -28,8 +28,10 @@ export interface ITicket {
   description: string;
   status: TicketStatus;
   priority: TicketPriority;
+  projectId: string;
   dueTo?: Date;
   reporter: IUser;
+  assignees?: IUser[];
   skills?: ISkill[];
 }
 
@@ -41,4 +43,9 @@ export interface ISkill {
 export interface UserSkill {
   name: string;
   level: SkillLevel;
+}
+
+export interface ITicketUser {
+  userId: string;
+  ticketId: string;
 }

@@ -21,16 +21,23 @@ export const GET_TICKET_BY_ID = gql`
     result: ticketById(id: $id) {
       id
       title
+      description
       status
       priority
       dueTo
+      projectId
+      reporter {
+        email
+      }
       assignees {
+        id
+        email
         firstName
         lastName
       }
       skills {
+        id
         name
-        level
       }
     }
   }
@@ -103,5 +110,17 @@ export const GET_SKILLS = gql`
       id
       name
     }
+  }
+`;
+
+export const ASSIGN_TICKET_TO_UESR = gql`
+  mutation assignTicketToUser($userId: String!, $ticketId: String!) {
+    result: assignTicketToUser(userId: $userId, ticketId: $ticketId)
+  }
+`;
+
+export const UNASSIGN_TICKET_FROM_USER = gql`
+  mutation unassignTicketFromUser($userId: String!, $ticketId: String!) {
+    result: unassignTicketFromUser(userId: $userId, ticketId: $ticketId)
   }
 `;

@@ -4,8 +4,8 @@ import { Badge, Heading, Skeleton, Text } from "@radix-ui/themes";
 import { GET_TICKETS_BY_PROJECT_ID } from "~/shared/graphql/ticket";
 import { QueryOutput } from "~/shared/types";
 import { ITicket, TicketStatus } from "~/shared/types/ticket";
+import { TicketStatusItems } from "~/shared/const/ticket";
 
-import { TicketStatusItems } from "./const";
 import TicketItem from "./TicketItem";
 
 interface TicketContainerProps {

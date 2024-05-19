@@ -3,7 +3,6 @@ import { Button, Dialog, Skeleton } from "@radix-ui/themes";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
-import PageWrapper from "~/containers/PageWrapper";
 import { GET_MY_PROJECTS } from "~/shared/graphql/project";
 import Pagination from "~/components/shared/Pagination";
 import { RootState } from "~/state";
@@ -33,30 +32,26 @@ const ProjectsContainer: React.FC = () => {
   const itemCount = data?.result.count !== undefined ? data?.result.count : PAGE_ITEMS_COUNT;
 
   return (
-    <PageWrapper>
-      <div className="flex flex-col items-start space-y-4 w-full">
-        <div className="w-full grid grid-cols-4 auto-rows-max gap-4">
-          <Dialog.Root>
-            <Dialog.Trigger>
-              <Button className="h-full py-8 px-10 rounded-xl text-[16px] cursor-pointer">
-                + Create a new project
-              </Button>
-            </Dialog.Trigger>
-            <Dialog.Content size="4" maxWidth="450px">
-              <Dialog.Title>Create a Project</Dialog.Title>
-              <CreateProjectForm />
-            </Dialog.Content>
-          </Dialog.Root>
+    <div className="flex flex-col items-start space-y-4 w-full">
+      <div className="w-full grid grid-cols-4 auto-rows-max gap-4">
+        <Dialog.Root>
+          <Dialog.Trigger>
+            <Button className="h-full py-8 px-10 rounded-xl text-[16px] cursor-pointer">+ Create a new project</Button>
+          </Dialog.Trigger>
+          <Dialog.Content size="4" maxWidth="450px">
+            <Dialog.Title>Create a Project</Dialog.Title>
+            <CreateProjectForm />
+          </Dialog.Content>
+        </Dialog.Root>
 
-          <Skeleton loading={loading} className="h-[200px]" />
-          <Skeleton loading={loading} className="h-[200px]" />
-          <Skeleton loading={loading} className="h-[200px]" />
+        <Skeleton loading={loading} className="h-[200px]" />
+        <Skeleton loading={loading} className="h-[200px]" />
+        <Skeleton loading={loading} className="h-[200px]" />
 
-          {projects.length ? projects.map((project) => <ProjectItem key={project.id} project={project} />) : null}
-        </div>
-        <Pagination page={page} count={Math.ceil(itemCount / PAGE_ITEMS_COUNT)} onChange={(v) => setPage(v)} />
+        {projects.length ? projects.map((project) => <ProjectItem key={project.id} project={project} />) : null}
       </div>
-    </PageWrapper>
+      <Pagination page={page} count={Math.ceil(itemCount / PAGE_ITEMS_COUNT)} onChange={(v) => setPage(v)} />
+    </div>
   );
 };
 

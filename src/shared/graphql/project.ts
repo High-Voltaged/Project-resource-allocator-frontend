@@ -62,8 +62,8 @@ export const ADD_PROJECT_MEMBER = gql`
 `;
 
 export const PROJECT_USERS = gql`
-  query projectUsers($projectId: String!, $limit: Int, $offset: Int) {
-    result: projectUsers(projectId: $projectId, limit: $limit, offset: $offset) {
+  query projectUsers($projectId: String!, $limit: Int, $offset: Int, $role: UserRole) {
+    result: projectUsers(projectId: $projectId, limit: $limit, offset: $offset, role: $role) {
       items {
         id
         lastName

@@ -15,8 +15,8 @@ export interface QueryOutput<T> {
 }
 
 export interface PaginationArgs {
-  limit: number;
-  offset: number;
+  limit?: number;
+  offset?: number;
 }
 
 export interface PaginatedType<T> {

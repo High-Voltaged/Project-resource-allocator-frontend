@@ -9,10 +9,10 @@ import ToastContainer from "~/components/shared/Toast";
 import { ERROR_TITLE, SUCCESS_TITLE } from "~/shared/const/misc";
 import { capitalize } from "~/shared/utils";
 import DatePicker from "~/components/ui/date-picker";
+import { TicketStatusItems } from "~/shared/const/ticket";
 
 import { ITicketValidationInput, TUpsertTicketInput, TCreateTicketOutput } from "../types";
 import { editTicketSchema, initialTicketValues } from "../validation";
-import { TicketStatusItems } from "../TicketContainer/const";
 
 export interface ICreateTicketForm {
   projectId: string;

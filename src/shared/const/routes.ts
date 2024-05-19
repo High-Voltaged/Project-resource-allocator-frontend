@@ -4,6 +4,8 @@ export const BaseRoutes = {
   REGISTER: "/register",
   PROJECTS: "/projects",
   PROJECT: "/projects/:id",
+  TICKETS: "/tickets",
+  TICKET: "/tickets/:id",
 };
 
 export const MyRoutes = {

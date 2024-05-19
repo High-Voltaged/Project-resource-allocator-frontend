@@ -1,25 +1,31 @@
 import { Avatar, Badge, Card, IconButton, Text } from "@radix-ui/themes";
+import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
 
 import { getUserNameLabel } from "~/shared/utils";
 import { ITicket } from "~/shared/types/ticket";
 
-import { TicketDateFormatter, TicketPriorityIcons } from "./const";
+import { BaseRoutes } from "~/shared/const/routes";
+import { TicketDateFormatter, TicketPriorityIcons } from "~/shared/const/ticket";
 
 interface TicketItemProps {
   ticket: ITicket;
 }
 
 const TicketItem: React.FC<TicketItemProps> = ({ ticket }) => {
+  const navigate = useNavigate();
   const PriorityIcon = TicketPriorityIcons[ticket.priority].icon;
   const priorityColor = TicketPriorityIcons[ticket.priority].color;
 
   const dueDate = ticket.dueTo ? TicketDateFormatter.format(new Date(ticket.dueTo)) : null;
 
+  const ticketPath = `${BaseRoutes.TICKETS}/${ticket.id}`;
+
   return (
     <Card
       key={ticket.title}
       size="2"
+      onClick={() => navigate(ticketPath)}
       className="flex flex-col items-start py-4 px-5 w-full space-y-2 shadow-md transition-transform duration-500 ease-in-out transform hover:-translate-y-2 cursor-pointer"
     >
       <Text as="div" size="3" weight="medium" className="w-full">

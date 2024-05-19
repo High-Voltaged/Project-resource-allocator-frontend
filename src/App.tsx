@@ -11,6 +11,7 @@ import { BaseRoutes, MyRoutes } from "~/shared/const/routes";
 import { getLSValue } from "~/shared/utils";
 import { LSKey } from "~/shared/types";
 import useCurrentUser from "~/hooks/use-current-user";
+import TicketByIdPage from "./pages/TicketById";
 
 const App = () => {
   const { updateCurrentUser } = useCurrentUser();
@@ -30,6 +31,7 @@ const App = () => {
         <Route path={BaseRoutes.REGISTER} element={<Register />} />
         <Route path={BaseRoutes.PROJECTS} element={<ProjectsPage />} />
         <Route path={BaseRoutes.PROJECT} element={<ProjectByIdPage />} />
+        <Route path={BaseRoutes.TICKET} element={<TicketByIdPage />} />
 
         <Route path={MyRoutes.SETTINGS} element={<SettingsPage />} />
       </Routes>

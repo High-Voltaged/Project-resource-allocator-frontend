@@ -20,6 +20,7 @@ export interface IAddProjectUserInput {
 
 export interface IMembersListVars extends PaginationArgs {
   projectId: string;
+  role?: UserRole;
 }
 
 export type TMyProjectsPaginatedOutput = QueryOutput<PaginatedType<IProject>>;
