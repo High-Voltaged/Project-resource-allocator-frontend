@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Skeleton } from "@radix-ui/themes";
+import { Spinner } from "@radix-ui/themes";
 import { useParams } from "react-router-dom";
 import { TriangleAlertIcon } from "lucide-react";
 
@@ -18,12 +18,16 @@ const TicketByIdContainer: React.FC = () => {
 
   return (
     <div className="flex flex-col items-start w-full max-h-full">
-      <Skeleton loading={loading} className="h-[100px] w-1/2" />
+      {loading && (
+        <div className="w-full h-full flex items-center justify-center">
+          <Spinner size="3" loading={loading} />
+        </div>
+      )}
       {ticket ? (
         <TicketById ticket={ticket} />
-      ) : (
+      ) : !ticket && !loading ? (
         <Alert text={error?.message || "An error occurred."} icon={TriangleAlertIcon} color="red" />
-      )}
+      ) : null}
     </div>
   );
 };

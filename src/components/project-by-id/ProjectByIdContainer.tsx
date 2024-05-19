@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Heading, Separator, Skeleton } from "@radix-ui/themes";
+import { Heading, Separator, Spinner } from "@radix-ui/themes";
 import { useParams } from "react-router-dom";
 
 import { GET_PROJECT_BY_ID } from "~/shared/graphql/project";
@@ -16,8 +16,12 @@ const ProjectByIdContainer: React.FC = () => {
   const project = data?.result;
 
   return (
-    <div className="flex flex-col items-start w-full max-h-full">
-      <Skeleton loading={loading} className="h-[100px] w-1/2" />
+    <div className="flex flex-col items-start w-full h-[calc(100vh_-_80px-_5rem)]">
+      {loading && (
+        <div className="w-full h-full flex items-center justify-center">
+          <Spinner size="3" loading={loading} />
+        </div>
+      )}
       {project && (
         <div className="flex flex-col items-start space-y-6 w-full h-full">
           <Heading as="h3" size="5">
