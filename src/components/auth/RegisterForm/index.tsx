@@ -52,7 +52,7 @@ const RegisterForm: React.FC = () => {
           onBlur={formik.handleBlur}
         >
           <TextField.Slot>
-            <UserIcon className="w-5 h-5" />
+            <UserIcon className="w-4 h-4" />
           </TextField.Slot>
         </TextField.Root>
         {formik.touched.firstName && formik.errors.firstName && (
@@ -71,7 +71,7 @@ const RegisterForm: React.FC = () => {
           onBlur={formik.handleBlur}
         >
           <TextField.Slot>
-            <UserIcon className="w-5 h-5" />
+            <UserIcon className="w-4 h-4" />
           </TextField.Slot>
         </TextField.Root>
         {formik.touched.lastName && formik.errors.lastName && (
@@ -90,7 +90,7 @@ const RegisterForm: React.FC = () => {
           onBlur={formik.handleBlur}
         >
           <TextField.Slot>
-            <MailIcon className="w-5 h-5" />
+            <MailIcon className="w-4 h-4" />
           </TextField.Slot>
         </TextField.Root>
         {formik.touched.email && formik.errors.email && (
@@ -110,7 +110,7 @@ const RegisterForm: React.FC = () => {
           onBlur={formik.handleBlur}
         >
           <TextField.Slot>
-            <LockIcon className="w-5 h-5" />
+            <LockIcon className="w-4 h-4" />
           </TextField.Slot>
         </TextField.Root>
         {formik.touched.password && formik.errors.password && (

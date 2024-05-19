@@ -8,6 +8,10 @@ export const GET_TICKETS_BY_PROJECT_ID = gql`
       status
       priority
       dueTo
+      reporter {
+        firstName
+        lastName
+      }
     }
   }
 `;
@@ -20,6 +24,10 @@ export const GET_TICKET_BY_ID = gql`
       status
       priority
       dueTo
+      assignees {
+        firstName
+        lastName
+      }
       skills {
         name
         level
@@ -40,7 +48,7 @@ export const CREATE_TICKET = gql`
     $description: String!
     $status: TicketStatus!
     $priority: TicketPriority!
-    $dueTo: Date
+    $dueTo: DateTime
     $projectId: String!
   ) {
     result: createTicket(
@@ -57,7 +65,6 @@ export const CREATE_TICKET = gql`
       status
       priority
       dueTo
-      projectId
     }
   }
 `;

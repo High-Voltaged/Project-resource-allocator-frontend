@@ -13,7 +13,7 @@ import ProjectItem from "./ProjectItem";
 import CreateProjectForm from "./CreateProjectForm";
 import { TMyProjectsPaginatedOutput } from "./types";
 
-const PAGE_ITEMS_COUNT = 11;
+const PAGE_ITEMS_COUNT = 19;
 
 const ProjectsContainer: React.FC = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);

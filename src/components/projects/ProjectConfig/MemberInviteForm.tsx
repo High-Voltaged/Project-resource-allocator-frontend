@@ -49,8 +49,8 @@ const MemberInviteForm: React.FC<MemberInviteFormProps> = ({ project }) => {
         <div>
           <TextField.Root
             id="email"
-            size="3"
-            className="w-full rounded-xl border border-slate-100 placeholder-slate-400"
+            size="2"
+            className="w-full rounded-lg border border-slate-100 placeholder-slate-400"
             placeholder="Your email"
             name="email"
             value={formik.values.email}
@@ -58,7 +58,7 @@ const MemberInviteForm: React.FC<MemberInviteFormProps> = ({ project }) => {
             onBlur={formik.handleBlur}
           >
             <TextField.Slot>
-              <MailIcon className="w-5 h-5" />
+              <MailIcon className="w-4 h-4" />
             </TextField.Slot>
           </TextField.Root>
           {formik.touched.email && formik.errors.email && (
@@ -67,7 +67,6 @@ const MemberInviteForm: React.FC<MemberInviteFormProps> = ({ project }) => {
         </div>
         <div>
           <Select.Root
-            size="3"
             defaultValue={UserRole.Employee}
             value={formik.values.role}
             onValueChange={(value) => formik.setFieldValue("type", value)}
@@ -84,7 +83,7 @@ const MemberInviteForm: React.FC<MemberInviteFormProps> = ({ project }) => {
         </div>
       </div>
       <Button
-        size="3"
+        size="2"
         loading={loading}
         className="px-10 rounded-lg border-none text-center cursor-pointer"
         type="submit"

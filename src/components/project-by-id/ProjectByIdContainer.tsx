@@ -16,7 +16,7 @@ const ProjectByIdContainer: React.FC = () => {
   const project = data?.result;
 
   return (
-    <div className="flex flex-col items-start w-full">
+    <div className="flex flex-col items-start w-full max-h-full">
       <Skeleton loading={loading} className="h-[100px] w-1/2" />
       {project && (
         <div className="flex flex-col items-start space-y-6 w-full h-full">

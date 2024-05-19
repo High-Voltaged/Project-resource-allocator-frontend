@@ -1,3 +1,5 @@
+import { IUser } from "./user";
+
 export enum TicketStatus {
   backlog = "backlog",
   todo = "todo",
@@ -27,7 +29,8 @@ export interface ITicket {
   status: TicketStatus;
   priority: TicketPriority;
   dueTo?: Date;
-  skills: ISkill[];
+  reporter: IUser;
+  skills?: ISkill[];
 }
 
 export interface ISkill {

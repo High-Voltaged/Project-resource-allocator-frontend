@@ -6,6 +6,7 @@ import { RootState } from "~/state";
 
 import UserAvatar from "./UserAvatar";
 import { MENU_ITEMS } from "./const";
+import { Text } from "@radix-ui/themes";
 
 const Navbar = () => {
   const user = useSelector((state: RootState) => state.user.currentUser);
@@ -18,11 +19,12 @@ const Navbar = () => {
           {MENU_ITEMS.map((item) => (
             <NavigationMenu.Item key={item.label}>
               <NavigationMenu.Link
+                color="indigo"
                 active={pathname === item.path}
-                className="text-featured hover:bg-violet-200 data-[active]:bg-violet-200 block select-none rounded-md px-6 py-3 font-medium leading-none no-underline outline-none"
+                className=" hover:bg-violet-200 data-[active]:bg-violet-200 block select-none rounded-md px-6 py-3 font-medium leading-none no-underline outline-none"
                 href={item.path}
               >
-                {item.label}
+                <Text color="indigo">{item.label}</Text>
               </NavigationMenu.Link>
             </NavigationMenu.Item>
           ))}

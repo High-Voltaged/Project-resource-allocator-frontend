@@ -10,7 +10,7 @@ import { ERROR_TITLE, SUCCESS_TITLE } from "~/shared/const/misc";
 import { capitalize } from "~/shared/utils";
 import DatePicker from "~/components/ui/date-picker";
 
-import { ICreateTicketInput, IUpdateTicketInput, TCreateTicketOutput } from "../types";
+import { ITicketValidationInput, TUpsertTicketInput, TCreateTicketOutput } from "../types";
 import { editTicketSchema, initialTicketValues } from "../validation";
 import { TicketStatusItems } from "../TicketContainer/const";
 
@@ -22,7 +22,7 @@ export interface ICreateTicketForm {
 const CreateTicketForm: React.FC<ICreateTicketForm> = ({ ticket, projectId }) => {
   const [toastOpen, setToastOpen] = useState(false);
 
-  const [createTicket, { loading, error }] = useMutation<TCreateTicketOutput, ICreateTicketInput | IUpdateTicketInput>(
+  const [createTicket, { loading, error }] = useMutation<TCreateTicketOutput, TUpsertTicketInput>(
     !ticket ? CREATE_TICKET : UPDATE_TICKET,
     {
       refetchQueries: [GET_TICKETS_BY_PROJECT_ID],
@@ -31,13 +31,13 @@ const CreateTicketForm: React.FC<ICreateTicketForm> = ({ ticket, projectId }) =>
     }
   );
 
-  const formik = useFormik<ICreateTicketInput | IUpdateTicketInput>({
+  const formik = useFormik<ITicketValidationInput>({
     initialValues: ticket || initialTicketValues,
     enableReinitialize: true,
     validationSchema: editTicketSchema,
     onSubmit: async (data) => {
       const id = ticket?.id || null;
-      const variables = id ? { id, ...data } : { projectId, ...data };
+      const variables: TUpsertTicketInput = id ? { id, ...data } : { projectId, ...data };
       await createTicket({ variables });
       formik.resetForm();
     },
