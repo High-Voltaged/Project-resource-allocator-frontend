@@ -121,6 +121,12 @@ export const GET_SKILLS = gql`
   }
 `;
 
+export const ADD_SKILL = gql`
+  mutation addSkill($name: String!) {
+    result: addSkill(name: $name)
+  }
+`;
+
 export const ASSIGN_TICKET_TO_UESR = gql`
   mutation assignTicketToUser($userId: String!, $ticketId: String!) {
     result: assignTicketToUser(userId: $userId, ticketId: $ticketId)

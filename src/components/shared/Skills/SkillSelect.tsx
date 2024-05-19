@@ -14,6 +14,7 @@ import {
   UserSkill,
 } from "~/shared/types/ticket";
 import { SKILL_LEVELS, SKILL_LEVELS_MAP } from "~/shared/const/ticket";
+import SkillForm from "./SkillForm";
 
 interface SkillSelectProps {
   ticket: ITicket;
@@ -88,7 +89,9 @@ const SkillSelect: React.FC<SkillSelectProps> = ({ ticket }) => {
   };
 
   return (
-    <>
+    <div className="flex flex-col items-start space-y-4">
+      <SkillForm />
+
       <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
         <Dialog.Content maxWidth="450px">
           <Dialog.Title size="2" mb="4">
@@ -138,6 +141,7 @@ const SkillSelect: React.FC<SkillSelectProps> = ({ ticket }) => {
           </Flex>
         </Dialog.Content>
       </Dialog.Root>
+
       <MultiSelectFormField
         options={skills}
         defaultValue={ticketSkills}
@@ -145,8 +149,7 @@ const SkillSelect: React.FC<SkillSelectProps> = ({ ticket }) => {
         placeholder="Select options"
         variant="destructive"
       />
-      {/* <SkillForm /> */}
-    </>
+    </div>
   );
 };
 
