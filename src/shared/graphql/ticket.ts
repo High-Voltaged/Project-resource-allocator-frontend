@@ -27,6 +27,8 @@ export const GET_TICKET_BY_ID = gql`
       dueTo
       projectId
       reporter {
+        firstName
+        lastName
         email
       }
       assignees {

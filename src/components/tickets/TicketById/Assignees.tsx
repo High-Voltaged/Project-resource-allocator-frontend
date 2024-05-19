@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
-import { Text } from "@radix-ui/themes";
+import { Heading } from "@radix-ui/themes";
 import { UserIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -61,20 +61,18 @@ const Assignees: React.FC<AssigneesProps> = ({ ticket }) => {
   };
 
   return (
-    <div className="w-full">
-      <label>
-        <Text as="div" size="2" weight="medium" mb="1">
-          Assignees
-        </Text>
-        <MultiSelectFormField
-          options={employees}
-          defaultValue={assignees}
-          onValueChange={(v) => assignEmployee(v)}
-          placeholder="Select options"
-          variant="destructive"
-          color="indigo"
-        />
-      </label>
+    <div className="flex flex-col items-start space-y-2 w-full">
+      <Heading as="h4" size="3">
+        Assignees
+      </Heading>
+      <MultiSelectFormField
+        options={employees}
+        defaultValue={assignees}
+        onValueChange={(v) => assignEmployee(v)}
+        placeholder="Select options"
+        variant="destructive"
+        color="indigo"
+      />
     </div>
   );
 };
