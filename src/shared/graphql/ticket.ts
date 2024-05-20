@@ -107,8 +107,13 @@ export const UPDATE_TICKET = gql`
       status
       priority
       dueTo
-      projectId
     }
+  }
+`;
+
+export const DELETE_TICKET = gql`
+  mutation deleteTicket($id: String!) {
+    deleteTicket(id: $id)
   }
 `;
 

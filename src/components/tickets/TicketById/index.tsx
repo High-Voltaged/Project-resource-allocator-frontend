@@ -1,7 +1,8 @@
-import { Heading, Separator, Text } from "@radix-ui/themes";
+import { Separator, Text } from "@radix-ui/themes";
 import { ITicket } from "~/shared/types/ticket";
 import CommentContainer from "~/components/comments/CommentContainer";
 import TicketDetails from "./TicketDetails";
+import TicketBar from "./TicketBar";
 
 interface TicketByIdProps {
   ticket: ITicket;
@@ -10,9 +11,7 @@ interface TicketByIdProps {
 const TicketById: React.FC<TicketByIdProps> = ({ ticket }) => {
   return (
     <div className="flex flex-col items-start space-y-6 w-full h-full">
-      <Heading as="h3" size="6">
-        {ticket.title}
-      </Heading>
+      <TicketBar ticket={ticket} />
       <Separator size="4" className="bg-slate-300" />
       <div className="flex items-start space-x-20 w-full">
         <div className="flex flex-col flex-1 space-y-8">

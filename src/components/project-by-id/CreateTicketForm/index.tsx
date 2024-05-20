@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useFormik } from "formik";
 
 import { ITicket, TicketPriority, TicketStatus } from "~/shared/types/ticket";
-import { CREATE_TICKET, GET_TICKETS_BY_PROJECT_ID, UPDATE_TICKET } from "~/shared/graphql/ticket";
+import { CREATE_TICKET, GET_TICKETS_BY_PROJECT_ID, GET_TICKET_BY_ID, UPDATE_TICKET } from "~/shared/graphql/ticket";
 import ToastContainer from "~/components/shared/Toast";
 import { ERROR_TITLE, SUCCESS_TITLE } from "~/shared/const/misc";
 import { capitalize } from "~/shared/utils";
@@ -25,7 +25,7 @@ const CreateTicketForm: React.FC<ICreateTicketForm> = ({ ticket, projectId }) =>
   const [createTicket, { loading, error }] = useMutation<TCreateTicketOutput, TUpsertTicketInput>(
     !ticket ? CREATE_TICKET : UPDATE_TICKET,
     {
-      refetchQueries: [GET_TICKETS_BY_PROJECT_ID],
+      refetchQueries: [GET_TICKETS_BY_PROJECT_ID, ...(ticket ? [GET_TICKET_BY_ID] : [])],
       onCompleted: () => setToastOpen(true),
       onError: () => setToastOpen(true),
     }
