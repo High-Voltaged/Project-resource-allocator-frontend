@@ -3,42 +3,38 @@ import { Button, Dialog, Flex, Select, Text } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 
 import MultiSelectFormField from "~/components/ui/multi-select";
-import { GET_SKILLS, GET_TICKET_BY_ID, REMOVE_TICKET_SKILLS, UPDATE_TICKET_SKILLS } from "~/shared/graphql/ticket";
+import { GET_MY_PROFILE, REMOVE_MY_SKILLS, UPDATE_MY_SKILLS } from "~/shared/graphql/user";
+import { GET_SKILLS } from "~/shared/graphql/ticket";
 import { QueryOutput } from "~/shared/types";
-import {
-  ISkill,
-  ITicket,
-  RemoveTicketSkillsInput,
-  SkillLevel,
-  UpdateTicketSkillsInput,
-  UserSkill,
-} from "~/shared/types/ticket";
 import { SKILL_LEVELS, SKILL_LEVELS_MAP } from "~/shared/const/ticket";
+import { IUser, RemoveMySkillsInput, UpdateMySkillsInput } from "~/shared/types/user";
+import { ISkill, SkillLevel, UserSkill } from "~/shared/types/ticket";
+
 import SkillForm from "./SkillForm";
 
-interface SkillSelectProps {
-  ticket: ITicket;
+interface UserSkillSelectProps {
+  user: IUser;
 }
 
-const SkillSelect: React.FC<SkillSelectProps> = ({ ticket }) => {
+const UserSkillSelect: React.FC<UserSkillSelectProps> = ({ user }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const [ticketSkills, setTicketSkills] = useState<string[]>([]);
+  const [userSkills, setUserSkills] = useState<string[]>([]);
   const [currentSkills, setCurrentSkills] = useState<{ name: string; level: string }[]>([]);
 
   const { data } = useQuery<QueryOutput<ISkill[]>>(GET_SKILLS);
-  const [updateTicketSkills, { loading }] = useMutation<boolean, UpdateTicketSkillsInput>(UPDATE_TICKET_SKILLS, {
-    refetchQueries: [GET_TICKET_BY_ID],
+  const [updateUserSkills, { loading }] = useMutation<boolean, UpdateMySkillsInput>(UPDATE_MY_SKILLS, {
+    refetchQueries: [GET_MY_PROFILE],
   });
-  const [removeTicketSkills] = useMutation<boolean, RemoveTicketSkillsInput>(REMOVE_TICKET_SKILLS, {
-    refetchQueries: [GET_TICKET_BY_ID],
+  const [removeUserSkills] = useMutation<boolean, RemoveMySkillsInput>(REMOVE_MY_SKILLS, {
+    refetchQueries: [GET_MY_PROFILE],
   });
 
   const skills = (data?.result || []).map((s) => ({ value: s.name, label: s.name }));
 
   useEffect(() => {
-    setTicketSkills((ticket.skills || []).map((s) => s.name));
-  }, [ticket.skills]);
+    setUserSkills((user.skills || []).map((s) => s.name));
+  }, [user.skills]);
 
   useEffect(() => {
     if (!currentSkills.length) return;
@@ -50,12 +46,12 @@ const SkillSelect: React.FC<SkillSelectProps> = ({ ticket }) => {
     if (dialogOpen || !currentSkills.length) return;
 
     setCurrentSkills([]);
-    setTicketSkills([...ticketSkills]);
+    setUserSkills([...userSkills]);
   }, [dialogOpen]);
 
   const handleTempSkills = (skillIds: string[]) => {
-    const skillsToSave = skillIds.filter((id) => !ticketSkills.includes(id));
-    const skillsToRemove = ticketSkills.filter((id) => !skillIds.includes(id));
+    const skillsToSave = skillIds.filter((id) => !userSkills.includes(id));
+    const skillsToRemove = userSkills.filter((id) => !skillIds.includes(id));
 
     setCurrentSkills(
       skillsToSave.map((name) => ({
@@ -64,15 +60,14 @@ const SkillSelect: React.FC<SkillSelectProps> = ({ ticket }) => {
       }))
     );
 
-    removeTicketSkills({
+    removeUserSkills({
       variables: {
-        ticketId: ticket.id,
         skillNames: skillsToRemove,
       },
     });
   };
 
-  const submitTicketSkills = () => {
+  const submitUserSkills = () => {
     const skillsToSubmit: UserSkill[] = currentSkills.map((s) => ({
       ...s,
       level: SKILL_LEVELS_MAP[s.level],
@@ -80,10 +75,9 @@ const SkillSelect: React.FC<SkillSelectProps> = ({ ticket }) => {
 
     if (!skillsToSubmit.length) return;
 
-    return updateTicketSkills({
+    return updateUserSkills({
       variables: {
         skills: skillsToSubmit,
-        ticketId: ticket.id,
       },
     });
   };
@@ -95,7 +89,7 @@ const SkillSelect: React.FC<SkillSelectProps> = ({ ticket }) => {
       <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
         <Dialog.Content maxWidth="450px">
           <Dialog.Title size="2" mb="4">
-            Select the required skill level
+            Select the your skill level
           </Dialog.Title>
 
           <Flex direction="column" gap="3" mt="4" align="start">
@@ -134,7 +128,7 @@ const SkillSelect: React.FC<SkillSelectProps> = ({ ticket }) => {
               </Button>
             </Dialog.Close>
             <Dialog.Close>
-              <Button onClick={() => submitTicketSkills()} loading={loading}>
+              <Button onClick={() => submitUserSkills()} loading={loading}>
                 Save
               </Button>
             </Dialog.Close>
@@ -144,13 +138,13 @@ const SkillSelect: React.FC<SkillSelectProps> = ({ ticket }) => {
 
       <MultiSelectFormField
         options={skills}
-        defaultValue={ticketSkills}
+        defaultValue={userSkills}
         onValueChange={(skills) => handleTempSkills(skills)}
         placeholder="Select options"
-        variant="destructive"
+        style={{ backgroundColor: "var(--slate-1)", color: "var(--slate-12)" }}
       />
     </div>
   );
 };
 
-export default SkillSelect;
+export default UserSkillSelect;

@@ -1,18 +1,25 @@
-import { useSelector } from "react-redux";
-import { Tabs } from "@radix-ui/themes";
+import { Spinner, Tabs } from "@radix-ui/themes";
+import { useQuery } from "@apollo/client";
 
+import { GET_MY_PROFILE } from "~/shared/graphql/user";
+import { QueryOutput } from "~/shared/types";
 import { IUser } from "~/shared/types/user";
-import { RootState } from "~/state";
 
 import SettingsForm from "./SettingsForm";
 import PasswordForm from "./PasswordForm";
 
 const SettingsContainer: React.FC = () => {
-  const user = useSelector((state: RootState) => state.user.currentUser) as IUser;
+  const { data, loading } = useQuery<QueryOutput<IUser>>(GET_MY_PROFILE);
+
+  const user = data?.result;
 
   return (
     <div className="flex w-full bg-white rounded-xl shadow-md">
-      {user && (
+      {loading ? (
+        <div className="w-full h-full flex items-center justify-center">
+          <Spinner size="3" loading={loading} />
+        </div>
+      ) : user ? (
         <div className="p-1">
           <Tabs.Root defaultValue="account">
             <Tabs.List>
@@ -28,7 +35,7 @@ const SettingsContainer: React.FC = () => {
             </Tabs.Content>
           </Tabs.Root>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

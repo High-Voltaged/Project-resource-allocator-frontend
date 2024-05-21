@@ -29,7 +29,7 @@ const SkillForm: React.FC = () => {
         id="name"
         placeholder="New skill name"
         variant="surface"
-        className="w-full rounded-lg bg-slate-100"
+        className="w-full rounded-lg"
         name="name"
         value={formik.values.name}
         onChange={formik.handleChange}

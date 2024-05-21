@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
 import { useDispatch } from "react-redux";
-import { Button, Flex, Switch, Text, TextField } from "@radix-ui/themes";
+import { Button, Flex, Heading, Switch, Text, TextField } from "@radix-ui/themes";
 import { MailIcon, UserIcon } from "lucide-react";
 
 import { IUser } from "~/shared/types/user";
@@ -11,6 +11,7 @@ import { setCurrentUser } from "~/state/user-slice";
 import { QueryOutput } from "~/shared/types";
 import ToastContainer from "~/components/shared/Toast";
 import { ERROR_TITLE, SUCCESS_TITLE } from "~/shared/const/misc";
+import UserSkillSelect from "~/components/shared/Skills/UserSkillSelect";
 
 import { IUpdateProfileInput } from "./types";
 import { updateProfileSchema } from "./validation";
@@ -56,9 +57,11 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ user }) => {
         setOpen={setToastOpen}
       />
       <div className="flex flex-col w-full p-10 space-y-10">
-        <div className="flex flex-col md:flex-row items-start space-y-10 md:space-y-0 md:space-x-10 w-full">
+        <div className="flex flex-col items-start space-y-10 w-full">
           <form onSubmit={formik.handleSubmit} className="flex flex-col items-start w-full space-y-6">
-            <span className="text-xl font-bold text-title">Update Your Profile</span>
+            <Heading as="h3" size="5">
+              Update Your Profile
+            </Heading>
             <div className="w-full flex items-center justify-between space-x-4">
               <div>
                 <label>
@@ -162,6 +165,13 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ user }) => {
               </Button>
             </div>
           </form>
+          <div className="flex flex-col items-start space-y-2 w-full">
+            <Heading as="h3" size="5">
+              Your Skills
+            </Heading>
+
+            <UserSkillSelect user={user} />
+          </div>
         </div>
       </div>
     </>

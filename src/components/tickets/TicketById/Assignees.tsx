@@ -69,8 +69,7 @@ const Assignees: React.FC<AssigneesProps> = ({ ticket }) => {
         defaultValue={assignees}
         onValueChange={(v) => assignEmployees(v)}
         placeholder="Select options"
-        variant="destructive"
-        color="indigo"
+        style={{ backgroundColor: "var(--slate-1)", color: "var(--slate-12)" }}
       />
     </div>
   );

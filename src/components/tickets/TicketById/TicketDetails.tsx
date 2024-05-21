@@ -5,7 +5,7 @@ import { getUserNameLabel } from "~/shared/utils";
 import { TicketDateFormatter, TicketPriorityIcons, TicketStatusItems } from "~/shared/const/ticket";
 
 import Assignees from "./Assignees";
-import SkillSelect from "~/components/shared/Skills/SkillSelect";
+import SkillSelect from "~/components/shared/Skills/TicketSkillSelect";
 
 interface TicketDetailsProps {
   ticket: ITicket;
