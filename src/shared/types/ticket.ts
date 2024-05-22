@@ -17,9 +17,9 @@ export enum TicketPriority {
 }
 
 export enum SkillLevel {
-  Beginner,
-  Intermediate,
-  Proficient,
+  Beginner = 1,
+  Intermediate = 2,
+  Proficient = 3,
 }
 
 export interface ITicket {
