@@ -75,3 +75,25 @@ export const PROJECT_USERS = gql`
     }
   }
 `;
+
+export const PROJECT_TASK_ALLOCATION = gql`
+  mutation allocateProjectTasks($id: String!) {
+    result: allocateProjectTasks(id: $id) {
+      allocationIds
+      allocations {
+        user {
+          email
+        }
+        ticket {
+          title
+        }
+      }
+    }
+  }
+`;
+
+export const CONFIRM_OR_CANCEL_ALLOCATION = gql`
+  mutation confirmOrCancelAllocation($confirmed: Boolean!, $allocationIds: [String!]!) {
+    confirmOrCancelAllocation(confirmed: $confirmed, allocationIds: $allocationIds)
+  }
+`;

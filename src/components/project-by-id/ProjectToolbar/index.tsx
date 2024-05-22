@@ -5,13 +5,14 @@ import ProjectConfig from "~/components/projects/ProjectConfig";
 import { IProject, UserRole } from "~/shared/types/project";
 
 import CreateTicketForm from "../CreateTicketForm";
+import ProjectAllocation from "./ProjectAllocation";
 
 interface ProjectToolbarProps {
   project: IProject;
 }
 
 const ProjectToolbar: React.FC<ProjectToolbarProps> = ({ project }) => {
-  const isAdmin = project.role === UserRole.Admin;
+  const isAdmin = project.role === UserRole.Admin || project.role === UserRole.Manager;
 
   return (
     <div className="flex items-center justify-between w-full space-x-4">
@@ -27,11 +28,14 @@ const ProjectToolbar: React.FC<ProjectToolbarProps> = ({ project }) => {
         </Dialog.Content>
       </Dialog.Root>
       {isAdmin && (
-        <ProjectConfig project={project}>
-          <IconButton size="3" variant="soft" className="cursor-pointer">
-            <SettingsIcon className="w-5 h-5" />
-          </IconButton>
-        </ProjectConfig>
+        <div className="flex items-center space-x-4">
+          <ProjectAllocation projectId={project.id} />
+          <ProjectConfig project={project}>
+            <IconButton size="3" variant="soft" className="cursor-pointer">
+              <SettingsIcon className="w-5 h-5" />
+            </IconButton>
+          </ProjectConfig>
+        </div>
       )}
     </div>
   );

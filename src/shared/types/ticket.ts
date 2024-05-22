@@ -59,3 +59,18 @@ export interface RemoveTicketSkillsInput {
   skillNames: string[];
   ticketId: string;
 }
+
+export interface IAllocationResult {
+  ticket: { title: string };
+  user: { email: string };
+}
+
+export interface IAllocationOutput {
+  allocationIds: string[];
+  allocations: IAllocationResult[];
+}
+
+export interface IConfirmOrCancelAllocationInput {
+  allocationIds: string[];
+  confirmed: boolean;
+}

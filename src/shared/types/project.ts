@@ -5,6 +5,7 @@ export enum ProjectType {
 
 export enum UserRole {
   Employee = "Employee",
+  Manager = "Manager",
   Admin = "Admin",
 }
 
