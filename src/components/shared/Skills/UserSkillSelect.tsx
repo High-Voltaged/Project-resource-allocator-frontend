@@ -89,7 +89,7 @@ const UserSkillSelect: React.FC<UserSkillSelectProps> = ({ user }) => {
       <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
         <Dialog.Content maxWidth="450px">
           <Dialog.Title size="2" mb="4">
-            Select the your skill level
+            Select your skill level
           </Dialog.Title>
 
           <Flex direction="column" gap="3" mt="4" align="start">

@@ -26,7 +26,7 @@ const TicketDetails: React.FC<TicketDetailsProps> = ({ ticket }) => {
         <div className="flex items-center space-x-4 w-full">
           <Avatar fallback={getUserNameLabel(ticket.reporter)} />
           <Text as="span" size="2">
-            {ticket.reporter.lastName} {ticket.reporter.firstName}
+            {ticket.reporter.firstName} {ticket.reporter.lastName}
           </Text>
         </div>
       </div>

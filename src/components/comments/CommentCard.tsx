@@ -28,7 +28,7 @@ const CommentCard: React.FC<ICommentCardProps> = ({ comment }) => {
     <Card size="1" variant="classic" className="flex flex-col items-start w-full rounded-xl px-8 py-3 bg-indigo-200">
       <div className="w-full">
         <Text as="span" size="1" weight="medium">
-          Published at {createdAt}
+          Published on {createdAt}
         </Text>
       </div>
       <div className="w-full mt-1">
