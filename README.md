@@ -1,30 +1,25 @@
-# React + TypeScript + Vite
+# Project Resource Allocator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description 
 
-Currently, two official plugins are available:
+The frontend part of the Project Resource Allocator, providing UI for the authentication and task allocation processes, among others.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Page 
 
-## Expanding the ESLint configuration
+![project-page](https://github.com/High-Voltaged/Project-resource-allocator-frontend/assets/71522782/c180b204-e074-49d5-8525-a094d4843e1a)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Project Settings
 
-- Configure the top-level `parserOptions` property like this:
+![project-settings](https://github.com/High-Voltaged/Project-resource-allocator-frontend/assets/71522782/dbf14296-95b6-43aa-bb8f-116a9f89e269)
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Skill Definition
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+<img src="https://github.com/High-Voltaged/Project-resource-allocator-frontend/assets/71522782/6337b93d-8d23-4eb4-868c-a6251d0cd874" alt="skill-def" width="700" />
+
+## Ticket Page
+
+![ticket-page](https://github.com/High-Voltaged/Project-resource-allocator-frontend/assets/71522782/bfa22814-7690-4bd5-a57a-425d923822ee)
+
+## Results of Allocation
+
+![allocation-results](https://github.com/High-Voltaged/Project-resource-allocator-frontend/assets/71522782/c16b1e7f-1b3c-4e1a-80eb-1e66e850f9f7)
